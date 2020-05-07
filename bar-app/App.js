@@ -8,8 +8,12 @@ import {
   TextComponent,
 } from "react-native";
 
+import NavBar from "./User/navBar";
+import Profile from "./User/profile";
+import Map from "./User/map";
+
 export default function App() {
-  const [out, set] = useState("text to be set");
+  const [outern, set] = useState("xd");
   const [goals, setGoals] = useState([]);
 
   const goalInputHandler = (enteredText) => {
@@ -17,33 +21,16 @@ export default function App() {
   };
 
   const addGoalHandler = () => {
-    setGoals((currentGoals) => [...currentGoals, out]);
+    setGoals((goalser) => [...goalser, outern]);
   };
 
   return (
     <View style={styles.app}>
-      <View style={styles.navBar}>
-        <View style={styles.reservations}>
-          <Button title="res" onPress={addGoalHandler} />
-        </View>
+      <View style={styles.navBar}></View>
+      <Profile />
+      <Map />
 
-        <View style={styles.main}>
-          <TextInput
-            placeholder="main"
-            onChangeText={goalInputHandler}
-            style={{ borderColor: "black", borderBottomWidth: 1, padding: 10 }}
-          />
-        </View>
-
-        <View style={styles.history}>
-          <Button title="his" />
-        </View>
-      </View>
-      <View>
-        {goals.map((goal) => {
-          <TextComponent>{goal}</TextComponent>;
-        })}
-      </View>
+      <NavBar />
     </View>
   );
 }
@@ -52,30 +39,24 @@ const styles = StyleSheet.create({
   app: {
     paddingTop: 30,
     width: "100%",
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   navBar: {
-    paddingTop: 30,
     width: "100%",
+    height: "10%",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "stretch",
-  },
-  main: {
-    flex: 4,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
-  },
-  reservations: {
-    flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "green",
-  },
-  history: {
-    flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "blue",
+  },
+  map: {
+    width: "100%",
+    height: "10%",
+  },
+  profile: {
+    width: "100%",
+    height: "10%",
   },
 });
