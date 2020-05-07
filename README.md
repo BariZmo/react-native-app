@@ -2,5 +2,5 @@
 
 To launch:
 - install nodeJS, expo cli `https://reactnative.dev/docs/environment-setup`
-- navigate to repo
+- navigate to repo .../bar-app/
 - **`npm run start`** / `npm run web` / ...
