@@ -2,4 +2,5 @@
 
 To launch:
 - install nodeJS, expo cli `https://reactnative.dev/docs/environment-setup`
-- `npm run web` / `npm run start` / ...
+- navigate to repo
+- `**npm run start**` / `npm run web` / ...
