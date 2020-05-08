@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
 
 import NavBar from "./User/navBar";
 import UserMainView from "./User/userMainView";
@@ -28,7 +28,7 @@ export default function App() {
   return (
     <View style={styles.app}>
       <UserMainView />
-      <ProfileView userInfo={user} changeUserInfo={setUser} />
+      <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
       {
         //<UserMainView />
       }

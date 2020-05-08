@@ -5,7 +5,10 @@ export default function () {
   return (
     <View style={styles.view}>
       <Image
-        source={{ uri: "https://reactjs.org/logo-og.png" }}
+        source={{
+          uri:
+            "https://media.istockphoto.com/photos/brunette-young-man-with-chain-picture-id820105644?k=6&m=820105644&s=612x612&w=0&h=08rFDvFrzrxQZwnanG8dK_SFKE5kAdOKlB3emeT0QiU=",
+        }}
         style={styles.img}
       />
       <Text style={styles.text}>Mantas Radzi</Text>
@@ -21,6 +24,7 @@ const styles = StyleSheet.create({
   img: {
     width: 400,
     height: 400,
+    borderRadius: 400,
     position: "relative",
     justifyContent: "center",
   },
