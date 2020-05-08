@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Text } from "react-native";
 
 export default function () {
   return (
-    <View>
+    <View style={styles.view}>
       <Image
         source={{ uri: "https://reactjs.org/logo-og.png" }}
         style={styles.img}
@@ -14,6 +14,14 @@ export default function () {
 }
 
 const styles = StyleSheet.create({
-  img: { width: 400, height: 400, position: "relative" },
-  text: { width: "20%" },
+  view: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  img: {
+    width: 400,
+    height: 400,
+    position: "relative",
+    justifyContent: "center",
+  },
 });

@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  TextComponent,
-} from "react-native";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 import NavBar from "./User/navBar";
-import Profile from "./User/profile";
-import Map from "./User/map";
+import UserMainView from "./User/userMainView";
+import ProfileView from "./User/profileView";
 
 export default function App() {
-  const [outern, set] = useState("xd");
+  const [mainState, setMainState] = useState("");
   const [goals, setGoals] = useState([]);
 
   const goalInputHandler = (enteredText) => {
@@ -24,13 +17,22 @@ export default function App() {
     setGoals((goalser) => [...goalser, outern]);
   };
 
+  const [user, setUser] = useState({
+    id: 10,
+    name: "Mantas",
+    email: "mantas@et.lt",
+    number: 112,
+    rating: 10,
+  });
+
   return (
     <View style={styles.app}>
-      <View style={styles.navBar}></View>
-      <Profile />
-      <Map />
-
-      <NavBar />
+      <UserMainView />
+      <ProfileView userInfo={user} />
+      {
+        //<UserMainView />
+      }
+      <NavBar status={true} />
     </View>
   );
 }
@@ -41,15 +43,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     flexDirection: "column",
+
     justifyContent: "space-between",
-  },
-  navBar: {
-    width: "100%",
-    height: "10%",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "stretch",
-    backgroundColor: "blue",
+    alignItems: "center",
   },
   map: {
     width: "100%",
