@@ -28,7 +28,7 @@ export default function App() {
   return (
     <View style={styles.app}>
       <UserMainView />
-      <ProfileView userInfo={user} />
+      <ProfileView userInfo={user} changeUserInfo={setUser} />
       {
         //<UserMainView />
       }
