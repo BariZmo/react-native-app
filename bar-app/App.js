@@ -15,8 +15,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
         <Stack.Screen name="LoginScreen" component={LoginPage} />
+        {/* TODO: change to non-temp admin page */}
         <Stack.Screen name="AdminPage" component={AdminPage} />
+        {/* TODO: change to non-temp staff page */}
         <Stack.Screen name="StaffPage" component={StaffPage} />
+        {/* TODO: change to non-temp user page */}
         <Stack.Screen name="UserPage" component={UserPage} />
       </Stack.Navigator>
     </NavigationContainer>
