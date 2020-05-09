@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function ({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sveiki!</Text>
@@ -10,20 +13,50 @@ export default function ({ navigation }) {
         style={styles.input}
         placeholder="Jūsų el. paštas"
         placeholderTextColor="grey"
+        onChangeText={(input) => setEmail(input)}
+        onSubmitEditing={() => {
+          passwordInput.focus();
+        }}
       />
       <TextInput
         style={styles.input}
+        secureTextEntry
         placeholder="Jūsų slaptažodis"
         placeholderTextColor="grey"
+        onChangeText={(input) => setPassword(input)}
+        ref={(input) => (passwordInput = input)}
+        onSubmitEditing={() => {
+          submit(email, password, navigation);
+        }}
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {} /*navigation.navigate("UserPage")*/}
+        onPress={() => {
+          submit(email, password, navigation);
+        }}
       >
         <Text style={styles.buttonText}>Tęsti</Text>
       </TouchableOpacity>
     </View>
   );
+}
+
+function submit(email, password, navigation) {
+  // TODO: add email/psw saving and checking
+  if (email == "admin@admin.com" && password == "admin") {
+    navigation.navigate("AdminPage");
+  } else if (email == "staff@staff.com" && password == "staff") {
+    navigation.navigate("StaffPage");
+  } else if (email == "user@user.com" && password == "user") {
+    navigation.navigate("UserPage");
+  } else {
+    Alert.alert("Klaida:", "Duomenys neteisingi", [
+      {
+        text: "Tęsti",
+        onPress: () => {},
+      },
+    ]);
+  }
 }
 
 const styles = StyleSheet.create({
@@ -51,6 +84,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 200,
     borderRadius: 10,
+    fontSize: 15,
   },
   button: {
     alignItems: "center",
