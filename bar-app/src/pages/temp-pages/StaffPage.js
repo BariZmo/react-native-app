@@ -1,3 +1,5 @@
+// TODO: delete this page
+
 import React from "react";
 import { Text, View, StyleSheet, BackHandler } from "react-native";
 
