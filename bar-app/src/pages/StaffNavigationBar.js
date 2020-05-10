@@ -2,8 +2,6 @@ import React from "react";
 import { Text, View, StyleSheet, BackHandler, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-var width = Dimensions.get("window").width;
-
 export default function () {
   BackHandler.addEventListener("hardwareBackPress", () => true);
 
@@ -14,9 +12,6 @@ export default function () {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Patvirtintos registracijos</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Paskyra</Text>
       </TouchableOpacity>
     </View>
   );
@@ -29,7 +24,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "lightblue",
-    width: width / 3,
+    width: Dimensions.get("window").width / 2,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
