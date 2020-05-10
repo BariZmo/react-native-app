@@ -29,11 +29,12 @@ export default function App() {
   return (
     <View style={styles.app}>
       <HistoryView />
-      {
-        //<UserMainView />
-        //<ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
-        //<UserMainView />
-      }
+      {/*
+       <UserMainView />
+       <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
+        <UserMainView />
+      */}
+
       <NavBar status={true} />
     </View>
   );
