@@ -35,7 +35,6 @@ export default function App() {
        <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
         <UserMainView />
       */}
-
       <NavBar status={true} />
     </View>
   );

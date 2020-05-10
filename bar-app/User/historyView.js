@@ -17,11 +17,12 @@ export default function (props) {
     id: 88,
     date: "2020-14-08",
     bar: "Pas Vytauta",
+    money: 0,
   });
   // temp, sb from props
   const [infoArray, setInfoArray] = useState([
-    { id: 20, date: "2020 - 08 - 08", bar: "stikliai" },
-    { id: 21, date: "2020 - 05 - 10", bar: "solento" },
+    { id: 1, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
+    { id: 2, date: "2020 - 05 - 10", bar: "solento", money: 50 },
   ]);
 
   const [currentId, setCurrentId] = useState({
@@ -34,42 +35,57 @@ export default function (props) {
     { id: 2, item: "tortas", price: 11.27 },
   ]);
 
-  const [modalVisibility, setModalVisibility] = useState(true);
+  const [modalVisibility, setModalVisibility] = useState(false);
 
-  // renders all visits to bars
+  const showDetails = (IDE) => {
+    setCurrentId(IDE);
+    setModalVisibility(true);
+  };
+
+  // renders all visits to bars, bar - visit info - sum spent <-- tbd
+
+  /// learn 2 update vars
+  const calcSum = (IDE) => {
+    console.log(IDE);
+    var sum = 0;
+
+    spendInfo.map((infoElement) =>
+      infoElement.id === IDE ? (sum += infoElement.price) : null
+    );
+
+    infoArray.map((infoElement) => (infoElement.id === IDE ? barInfo : null)); // <-------------- fix
+    console.log(sum);
+  };
+
   function Item({ infoElement }) {
+    console.log(infoElement.money);
     return (
       <View>
         <View style={styles.row}>
-          <Text>ID: {infoElement.id}</Text>
           <Text>Bar: {infoElement.bar}</Text>
           <Text>DATE: {infoElement.date}</Text>
-
-          <Button title="Spendings" onPress={() => setModalVisibility(true)} />
+          <Text>Money spent: {infoElement.money}</Text>
         </View>
+        <Button title="Spendings" onPress={() => showDetails(infoElement.id)} />
       </View>
     );
   }
-
+  // detailed info product - price
   function VisitInfo({ infoElement }) {
-    console.log(currentId);
     return (
       <View style={styles.row}>
-        {infoElement.id === currentId ? (
-          <Text>ID: {infoElement.id}</Text>
-        ) : null}
-        {infoElement.id === currentId ? (
+        {infoElement.id == currentId ? (
           <Text>Item: {infoElement.item} </Text>
         ) : null}
-        {infoElement.id === currentId ? (
+        {infoElement.id == currentId ? (
           <Text>price: {infoElement.price}</Text>
         ) : null}
       </View>
     );
   }
-
+  calcSum(1);
   return (
-    <View>
+    <View style={styles.main}>
       <Modal visible={modalVisibility} animationType="slide">
         <View>
           <FlatList
@@ -91,6 +107,9 @@ export default function (props) {
 }
 
 const styles = StyleSheet.create({
+  main: {
+    height: "50%",
+  },
   list: {
     width: "100%",
   },
