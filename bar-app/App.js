@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
 import NavBar from "./User/navBar";
 import UserMainView from "./User/userMainView";
 import ProfileView from "./User/profileView";
+import HistoryView from "./User/historyView";
 
 export default function App() {
   const [mainState, setMainState] = useState("");
@@ -27,9 +28,10 @@ export default function App() {
 
   return (
     <View style={styles.app}>
-      <UserMainView />
-      <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
+      <HistoryView />
       {
+        //<UserMainView />
+        //<ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
         //<UserMainView />
       }
       <NavBar status={true} />

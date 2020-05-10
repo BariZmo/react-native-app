@@ -9,17 +9,27 @@ import {
 } from "react-native";
 
 export default function () {
-  const [emailValue, setEmailValue] = useState({
-    id: 10,
-    date: "2020-08-08",
+  const [barInfo, setBarInfo] = useState({
+    id: 88,
+    date: "2020-14-08",
   });
 
+  const [infoArray, setInfoArray] = useState([
+    { id: 20, date: "2020 - 08 - 08" },
+    { id: 21, date: "2020 - 05 - 10" },
+  ]);
+
   return (
-    <FlatList>
-      <View>
-        <Text>BarId = {}</Text>
-        <Text>Date = {}</Text>
-      </View>
-    </FlatList>
+    <View>
+      <Text>BarId = {barInfo.id}</Text>
+      <Text>Date = {barInfo.date}</Text>
+
+      {infoArray.map((barI) => (
+        <View>
+          <Text>xdid : {barI.id}</Text>
+          <Text>xddate : {barI.date}</Text>
+        </View>
+      ))}
+    </View>
   );
 }
