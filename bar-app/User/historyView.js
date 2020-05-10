@@ -18,12 +18,16 @@ export default function (props) {
     date: "2020-14-08",
     bar: "Pas Vytauta",
   });
-
+  // temp, sb from props
   const [infoArray, setInfoArray] = useState([
     { id: 20, date: "2020 - 08 - 08", bar: "stikliai" },
     { id: 21, date: "2020 - 05 - 10", bar: "solento" },
   ]);
 
+  const [currentId, setCurrentId] = useState({
+    id: 1,
+  });
+  // temp, sb from props
   const [spendInfo, setSpendInfo] = useState([
     { id: 1, item: "surelis", price: 20.21 },
     { id: 1, item: "jogurtas", price: 14.87 },
@@ -32,45 +36,52 @@ export default function (props) {
 
   const [modalVisibility, setModalVisibility] = useState(true);
 
-  function spending({ item }) {
+  // renders all visits to bars
+  function Item({ infoElement }) {
     return (
-      <View style={styles.row}>
-        <Text style={styles.elementID}>ID: {infoElement.id}</Text>
-        <Text style={styles.elementBar}>Bar: {infoElement.bar}</Text>
-        <Text>Spent money: </Text>
-        <Button title="Close" />
+      <View>
+        <View style={styles.row}>
+          <Text>ID: {infoElement.id}</Text>
+          <Text>Bar: {infoElement.bar}</Text>
+          <Text>DATE: {infoElement.date}</Text>
+
+          <Button title="Spendings" onPress={() => setModalVisibility(true)} />
+        </View>
       </View>
     );
   }
-  function showSpendings(spendingID) {
-    return (
-      <Modal visible={setModalVisibility}>
-        <FlatList
-          style={styles.list}
-          data={infoArray}
-          renderItem={({ item }) => <Item item={item} />}
-          keyExtractor={(item) => item.id}
-        />
-      </Modal>
-    );
-  }
 
-  function Item({ infoElement }) {
+  function VisitInfo({ infoElement }) {
+    console.log(currentId);
     return (
       <View style={styles.row}>
-        <Text style={styles.elementID}>ID: {infoElement.id}</Text>
-        <Text style={styles.elementBar}>Bar: {infoElement.bar}</Text>
-        <Text style={styles.date}>DATE: {infoElement.date}</Text>
-
-        <Button title="Spendings" />
+        {infoElement.id === currentId ? (
+          <Text>ID: {infoElement.id}</Text>
+        ) : null}
+        {infoElement.id === currentId ? (
+          <Text>Item: {infoElement.item} </Text>
+        ) : null}
+        {infoElement.id === currentId ? (
+          <Text>price: {infoElement.price}</Text>
+        ) : null}
       </View>
     );
   }
 
   return (
     <View>
+      <Modal visible={modalVisibility} animationType="slide">
+        <View>
+          <FlatList
+            data={spendInfo}
+            renderItem={({ item }) => <VisitInfo infoElement={item} />}
+            keyExtractor={(item) => item.id}
+          />
+          <Button title="go back" onPress={() => setModalVisibility(false)} />
+        </View>
+      </Modal>
+
       <FlatList
-        style={styles.list}
         data={infoArray}
         renderItem={({ item }) => <Item infoElement={item} />}
         keyExtractor={(item) => item.id}

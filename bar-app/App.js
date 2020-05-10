@@ -30,7 +30,8 @@ export default function App() {
     <View style={styles.app}>
       <HistoryView />
       {/*
-       <UserMainView />
+      
+      <UserMainView />
        <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
         <UserMainView />
       */}
