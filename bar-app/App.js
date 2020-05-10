@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import LoginPage from "./src/pages/LoginPage.js";
 import AdminPage from "./src/pages/temp-pages/AdminPage.js";
-import StaffPage from "./src/pages/temp-pages/StaffPage.js";
+import StaffPage from "./src/pages/StaffPage.js";
 import UserPage from "./src/pages/temp-pages/UserPage.js";
 
 const Stack = createStackNavigator();
