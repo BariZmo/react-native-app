@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, BackHandler } from "react-native";
+import { View, StyleSheet, BackHandler } from "react-native";
 import StaffNavigationBar from "./StaffNavigationBar";
 import UnapprovedReservationPage from "./UnapprovedReservationPage";
 import ReservationPage from "./ReservationPage";
