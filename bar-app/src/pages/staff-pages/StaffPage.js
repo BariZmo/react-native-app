@@ -3,6 +3,7 @@ import { View, StyleSheet, BackHandler, Dimensions } from "react-native";
 import StaffNavigationBar from "./StaffNavigationBar";
 import UnapprovedReservationPage from "./UnapprovedReservationPage";
 import ReservationPage from "./ReservationPage";
+import BarAccountPage from "./BarAccountPage";
 
 export default class StaffPage extends Component {
   constructor(props) {
@@ -23,8 +24,10 @@ export default class StaffPage extends Component {
           <View style={styles.screen}>
             {this.state.currentPage == 0 ? (
               <UnapprovedReservationPage />
-            ) : (
+            ) : this.state.currentPage == 1 ? (
               <ReservationPage />
+            ) : (
+              <BarAccountPage />
             )}
           </View>
           <View style={styles.navigationBar}>

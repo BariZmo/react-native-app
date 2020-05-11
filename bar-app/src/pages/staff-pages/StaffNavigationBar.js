@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, BackHandler, Dimensions } from "react-native";
-import {
-  TouchableOpacity,
-  TouchableHighlight,
-} from "react-native-gesture-handler";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 export default class StaffNavigationBar extends Component {
   updateParentState(data) {
@@ -22,7 +19,7 @@ export default class StaffNavigationBar extends Component {
           }}
           underlayColor={"#bde8f6"}
         >
-          <Text style={styles.buttonText}>Nepatvirtintos registracijos</Text>
+          <Text style={styles.buttonText}>Nepatvirtintos rezervacijos</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}
@@ -31,7 +28,16 @@ export default class StaffNavigationBar extends Component {
           }}
           underlayColor={"#bde8f6"}
         >
-          <Text style={styles.buttonText}>Patvirtintos registracijos</Text>
+          <Text style={styles.buttonText}>Patvirtintos rezervacijos</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => {
+            this.updateParentState({ currentPage: 2 });
+          }}
+          underlayColor={"#bde8f6"}
+        >
+          <Text style={styles.buttonText}>Paskyra</Text>
         </TouchableHighlight>
       </View>
     );
@@ -45,7 +51,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "lightblue",
-    width: Dimensions.get("screen").width / 2,
+    width: Dimensions.get("screen").width / 3,
     height: 50,
     alignItems: "center",
     justifyContent: "center",

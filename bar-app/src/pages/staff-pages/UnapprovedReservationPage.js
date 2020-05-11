@@ -53,8 +53,11 @@ export default function () {
             style={modalStyles.continueButton}
             activeOpacity={0.5}
             onPress={() => {
-              setMenuOpen(false);
+              setTimeout(function () {
+                setMenuOpen(false);
+              }, 1);
             }}
+            underlayColor={"white"}
           >
             <Text>Tęsti</Text>
           </TouchableHighlight>
@@ -248,6 +251,9 @@ const styles = StyleSheet.create({
     color: "white",
     paddingTop: 10,
     margin: 10,
+    textShadowColor: "black",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   container: {
     marginTop: 30,
