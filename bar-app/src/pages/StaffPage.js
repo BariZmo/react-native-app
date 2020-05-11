@@ -1,22 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 import { Text, View, StyleSheet, BackHandler } from "react-native";
 import StaffNavigationBar from "./StaffNavigationBar";
+import UnapprovedReservationPage from "./UnapprovedReservationPage";
+import ReservationPage from "./ReservationPage";
 
-export default function () {
-  BackHandler.addEventListener("hardwareBackPress", () => true);
+export default class StaffPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { currentPage: 0 };
+  }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.flexContainer}>
-        <View style={styles.navigationBar}>
-          <StaffNavigationBar />
-        </View>
-        <View style={styles.screen}>
-          <Text>Sveiki baro [baras] darbuotojau</Text>
+  updateState(data) {
+    this.setState(data);
+  }
+
+  render() {
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.flexContainer}>
+          <View style={styles.navigationBar}>
+            <StaffNavigationBar
+              updateParentState={this.updateState.bind(this)}
+            />
+          </View>
+          <View style={styles.screen}>
+            {this.state.currentPage == 0 ? (
+              <UnapprovedReservationPage />
+            ) : (
+              <ReservationPage />
+            )}
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({

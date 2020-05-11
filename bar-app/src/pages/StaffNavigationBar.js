@@ -1,20 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 import { Text, View, StyleSheet, BackHandler, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function () {
-  BackHandler.addEventListener("hardwareBackPress", () => true);
+export default class StaffNavigationBar extends Component {
+  updateParentState(data) {
+    this.props.updateParentState(data);
+  }
 
-  return (
-    <View style={styles.navigationBar}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Nepatvirtintos registracijos</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Patvirtintos registracijos</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  render() {
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+
+    return (
+      <View style={styles.navigationBar}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.updateParentState({ currentPage: 0 });
+          }}
+        >
+          <Text style={styles.buttonText}>Nepatvirtintos registracijos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.updateParentState({ currentPage: 1 });
+          }}
+        >
+          <Text style={styles.buttonText}>Patvirtintos registracijos</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
