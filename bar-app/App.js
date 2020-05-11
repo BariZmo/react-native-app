@@ -6,6 +6,7 @@ import UserMainView from "./User/userMainView";
 import ProfileView from "./User/profileView";
 import HistoryView from "./User/historyView";
 import ReportView from "./User/reportView";
+import ReservationView from "./User/reservationsView";
 import AdminView from "./Admin/adminView";
 import AdminUsersView from "./Admin/adminUsersView";
 
@@ -34,13 +35,14 @@ export default function App() {
   return (
     <View style={styles.app}>
       {/*
+      <AdminUsersView />
       <HistoryView />
       <ReportView />
       <UserMainView />
       <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
 
       */}
-      <AdminUsersView />
+      <ReservationView show={false} />
       <NavBar status={true} role={"admin"} />
     </View>
   );

@@ -75,7 +75,7 @@ export default function (props) {
           <Button title="Blokuoti" />
         </View>
         <View style={styles.secondLine}>
-          <Text>blocked: {infoElement.blocked}</Text>
+          <Text>blocked: {String(infoElement.blocked)}</Text>
           <Text>blockTime: {infoElement.blockTime}</Text>
           <Button title="Panaikinti" />
         </View>
