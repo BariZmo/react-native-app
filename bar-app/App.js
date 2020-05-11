@@ -5,6 +5,7 @@ import NavBar from "./User/navBar";
 import UserMainView from "./User/userMainView";
 import ProfileView from "./User/profileView";
 import HistoryView from "./User/historyView";
+import ReportView from "./User/reportView";
 
 export default function App() {
   const [mainState, setMainState] = useState("");
@@ -28,12 +29,15 @@ export default function App() {
 
   return (
     <View style={styles.app}>
-      <HistoryView />
-      {/*
-      
       <UserMainView />
-       <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
-        <UserMainView />
+      <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
+
+      {/*
+      <HistoryView />
+      <ReportView />
+      <UserMainView />
+      <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
+
       */}
       <NavBar status={true} />
     </View>

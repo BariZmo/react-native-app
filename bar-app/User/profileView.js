@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Button, Text, Modal, TextInput } from "react-native";
 
+import ReportView from "./reportView";
+
 export default function (props) {
-  const [isChangeMode, setChangeMode] = useState(true);
+  const [isChangeMode, setChangeMode] = useState(false);
 
   const selectChangeMode = () => {
     setChangeMode(!isChangeMode);
-    console.log(isChangeMode);
   };
 
   const saveChanges = () => {
@@ -26,8 +27,6 @@ export default function (props) {
   };
 
   const userInfoHandler = () => {
-    console.log(props);
-
     props.changeUserInfo({
       ["id"]: props.userInfo.id,
       ["name"]: props.userInfo.name,
@@ -36,6 +35,8 @@ export default function (props) {
       ["rating"]: props.userInfo.rating,
     });
   };
+
+  const [reportVisibility, setReportVisibility] = useState(false);
 
   return (
     <View>
@@ -81,6 +82,14 @@ export default function (props) {
           <Button title="Back" onPress={selectChangeMode} />
         ) : null}
       </View>
+
+      <ReportView
+        Visibility={reportVisibility}
+        SetVisibility={setReportVisibility}
+      />
+      {!isChangeMode ? (
+        <Button title="Report bug" onPress={() => setReportVisibility(true)} />
+      ) : null}
     </View>
   );
 }
@@ -89,11 +98,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    backgroundColor: "grey",
     alignItems: "center",
-    width: "100%",
+    width: "50%",
   },
   input: {
-    backgroundColor: "white",
+    backgroundColor: "grey",
   },
   normalModal: {
     alignItems: "center",
