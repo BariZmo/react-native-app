@@ -1,24 +1,12 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, BackHandler, FlatList } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { SampleReservations } from "./SampleReservations";
 
 export default function () {
   BackHandler.addEventListener("hardwareBackPress", () => true);
 
-  const [reservations, setReservations] = useState([
-    { name: "Jonas", otherPeople: 0, date: "2020-05-11 23:55", id: 0 },
-    { name: "Petras", otherPeople: 2, date: "2020-05-13 22:10", id: 1 },
-    { name: "Juozas", otherPeople: 1, date: "2020-05-12 20:20", id: 2 },
-    { name: "Klevas", otherPeople: 4, date: "2020-05-10 00:10", id: 3 },
-    { name: "Giedrius", otherPeople: 0, date: "2020-05-14 20:40", id: 4 },
-    { name: "Antanas", otherPeople: 3, date: "2020-05-17 21:15", id: 5 },
-    { name: "Juozapas", otherPeople: 2, date: "2020-05-11 20:45", id: 6 },
-    { name: "Smetona", otherPeople: 1, date: "2020-05-10 23:25", id: 7 },
-  ]);
+  const [reservations, setReservations] = useState(SampleReservations);
 
   const removeHandler = (id) => {
     setReservations((prevReservations) => {
