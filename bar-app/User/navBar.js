@@ -52,11 +52,11 @@ export default function (props) {
       com = "barComponents";
       return GetUser(com);
     }
-
-    return GetUserBar(state);
   };
 
-  return <View style={styles.navBar}>{SelectRole(props.status, "bar")}</View>;
+  return (
+    <View style={styles.navBar}>{SelectRole(props.status, props.role)}</View>
+  );
 }
 
 const styles = StyleSheet.create({

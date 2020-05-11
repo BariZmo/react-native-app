@@ -6,6 +6,8 @@ import UserMainView from "./User/userMainView";
 import ProfileView from "./User/profileView";
 import HistoryView from "./User/historyView";
 import ReportView from "./User/reportView";
+import AdminView from "./Admin/adminView";
+import AdminUsersView from "./Admin/adminUsersView";
 
 export default function App() {
   const [mainState, setMainState] = useState("");
@@ -28,7 +30,7 @@ export default function App() {
   });
 
   // NavBar status -> shows state if user in main view (true) or elsewhere (false)
-  // NavBar role -> shows what kind of role user has
+  // NavBar role -> shows what kind of role user has G1={} G2={} G3={} GMap={}
   return (
     <View style={styles.app}>
       {/*
@@ -38,7 +40,8 @@ export default function App() {
       <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
 
       */}
-      <NavBar status={true} />
+      <AdminUsersView />
+      <NavBar status={true} role={"admin"} />
     </View>
   );
 }
