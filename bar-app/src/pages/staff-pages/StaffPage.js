@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, BackHandler } from "react-native";
+import { View, StyleSheet, BackHandler, Dimensions } from "react-native";
 import StaffNavigationBar from "./StaffNavigationBar";
 import UnapprovedReservationPage from "./UnapprovedReservationPage";
 import ReservationPage from "./ReservationPage";
@@ -20,17 +20,17 @@ export default class StaffPage extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.flexContainer}>
-          <View style={styles.navigationBar}>
-            <StaffNavigationBar
-              updateParentState={this.updateState.bind(this)}
-            />
-          </View>
           <View style={styles.screen}>
             {this.state.currentPage == 0 ? (
               <UnapprovedReservationPage />
             ) : (
               <ReservationPage />
             )}
+          </View>
+          <View style={styles.navigationBar}>
+            <StaffNavigationBar
+              updateParentState={this.updateState.bind(this)}
+            />
           </View>
         </View>
       </View>
@@ -41,13 +41,11 @@ export default class StaffPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
   },
   flexContainer: {
-    flexDirection: "column-reverse",
+    flexDirection: "column",
   },
   screen: {
-    flexGrow: 1,
     height: "100%",
     backgroundColor: "#809fff",
     alignItems: "center",
@@ -55,6 +53,7 @@ const styles = StyleSheet.create({
   },
   navigationBar: {
     width: "100%",
-    height: 100,
+    position: "absolute",
+    bottom: 0,
   },
 });
