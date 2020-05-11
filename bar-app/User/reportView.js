@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
 
+///BUGS -> inputs doesnt refresh when closed and opened again
+
 export default function (props) {
   const [bugType, setBugType] = useState();
 
@@ -18,7 +20,7 @@ export default function (props) {
   const [reportVisibility, setreportVisibility] = useState(true);
 
   const SendReport = () => {
-    () => props.SetVisibility(false);
+    props.SetVisibility(false);
     //send()
   };
 
@@ -42,7 +44,7 @@ export default function (props) {
             value={bugDesciption}
           />
         </View>
-        <Button title="Send" onPress={() => SendReport} />
+        <Button title="Send" onPress={() => SendReport()} />
         <Button title="Cancel" onPress={() => props.SetVisibility(false)} />
       </Modal>
     </View>
