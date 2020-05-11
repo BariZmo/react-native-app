@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Button, Text, Modal, TextInput } from "react-native";
 
 import ReportView from "./reportView";
+import UserMainView from "./userMainView";
 
 export default function (props) {
   const [isChangeMode, setChangeMode] = useState(false);
@@ -40,6 +41,7 @@ export default function (props) {
 
   return (
     <View>
+      <UserMainView />
       <View style={styles.row}>
         <Text> Id: </Text>
         <Text> {props.userInfo.id}</Text>

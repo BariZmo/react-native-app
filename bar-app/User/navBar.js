@@ -4,32 +4,59 @@ import { View, StyleSheet, Button, ShadowPropTypesIOS } from "react-native";
 import Component from "./components/navBarComponent";
 
 export default function (props) {
-  const [componentsNM, setComponentNM] = useState([
+  const [userComponenets, setUserComponents] = useState([
     "reservations",
     "main",
     "history",
   ]);
 
-  const [componentsM, setComponentM] = useState([
+  const [userComponentsMain, setUserComponentsMain] = useState([
     "reservations",
     "map",
     "history",
   ]);
 
-  const getNavLayout = (state) => {
-    {
-      var com;
-      state ? (com = "componentsNM") : (com = "componentsM");
+  /// admin
+  const [adminComponenets, setAdminComponents] = useState([
+    "bars",
+    "main",
+    "users",
+  ]);
 
-      return eval(com).map((component) => (
-        <View key={component} style={eval("stylesComponents." + component)}>
+  ///
+  const [barComponents, setBarComponents] = useState([
+    "reservations",
+    "main",
+    "pending reservations",
+  ]);
+
+  const GetUser = (com) => {
+    {
+      return eval(com).map((component, index) => (
+        <View key={component} style={eval("stylesComponents.G" + (index + 1))}>
           <Button title={component} />
         </View>
       ));
     }
   };
 
-  return <View style={styles.navBar}>{getNavLayout(props.status)}</View>;
+  const SelectRole = (state, role) => {
+    var com;
+    if (role == "user") {
+      state ? (com = "userComponenets") : (com = "userComponentsMain");
+      return GetUser(com);
+    } else if (role == "admin") {
+      com = "adminComponenets";
+      return GetUser(com);
+    } else if (role == "bar") {
+      com = "barComponents";
+      return GetUser(com);
+    }
+
+    return GetUserBar(state);
+  };
+
+  return <View style={styles.navBar}>{SelectRole(props.status, "bar")}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -44,23 +71,19 @@ const styles = StyleSheet.create({
 });
 
 const stylesComponents = StyleSheet.create({
-  main: {
+  //user
+  G2: {
     justifyContent: "center",
-
     flex: 4,
     backgroundColor: "purple",
   },
-  map: {
-    justifyContent: "center",
-    flex: 4,
-    backgroundColor: "orange",
-  },
-  reservations: {
+
+  G1: {
     justifyContent: "center",
     flex: 3,
     backgroundColor: "green",
   },
-  history: {
+  G3: {
     flex: 3,
     justifyContent: "center",
     backgroundColor: "blue",

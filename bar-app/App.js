@@ -27,11 +27,10 @@ export default function App() {
     rating: 10,
   });
 
+  // NavBar status -> shows state if user in main view (true) or elsewhere (false)
+  // NavBar role -> shows what kind of role user has
   return (
     <View style={styles.app}>
-      <UserMainView />
-      <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
-
       {/*
       <HistoryView />
       <ReportView />
