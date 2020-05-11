@@ -15,9 +15,11 @@ import {
 export default function (props) {
   // temp, sb from props
   const [infoArray, setInfoArray] = useState([
-    { id: 1, date: "2020 - 08 - 08", bar: "stikliai" },
-    { id: 2, date: "2020 - 05 - 10", bar: "solento" },
+    { id: 1, date: "2020 - 08 - 08", bar: "stikliai", confirmed: true },
+    { id: 2, date: "2020 - 05 - 10", bar: "solento", confirmed: false },
   ]);
+
+  const [info, setInfo] = useState();
 
   const [modalVisibility, setModalVisibility] = useState(false);
 
@@ -33,6 +35,7 @@ export default function (props) {
           <Text>DATE: {infoElement.date}</Text>
           <Text>Time left: </Text>
         </TouchableOpacity>
+        <Button title="Atsaukti" />
       </View>
     );
   }
@@ -40,13 +43,6 @@ export default function (props) {
 
   return (
     <View style={styles.main}>
-      <Modal visible={modalVisibility} animationType="slide">
-        <View>
-          <Text>xdwd</Text>
-          <Button title="go back" onPress={() => setModalVisibility(false)} />
-        </View>
-      </Modal>
-
       <FlatList
         data={infoArray}
         renderItem={({ item }) => <Item infoElement={item} />}
