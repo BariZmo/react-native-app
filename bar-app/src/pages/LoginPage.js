@@ -49,6 +49,8 @@ function submit(email, password, navigation) {
     navigation.navigate("StaffPage");
   } else if (email == "user@user.com" && password == "user") {
     navigation.navigate("UserPage");
+  } else if (email == "" && password == "") {
+    navigation.navigate("test");
   } else {
     Alert.alert("Klaida:", "Duomenys neteisingi", [
       {

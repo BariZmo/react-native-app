@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
+import mapsView from "./SharedItems/mapsView";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="AdminPage" component={AdminUsersView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
+        <Stack.Screen name="test" component={mapsView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
