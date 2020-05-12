@@ -10,6 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
