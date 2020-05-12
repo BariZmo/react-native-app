@@ -19,7 +19,7 @@ export default function (props) {
       name: "Mantas",
       rating: 10,
       blocked: false,
-      blockTime: 2,
+      blockTime: 0,
       lastLogin: "2020-10-10",
     },
     {
