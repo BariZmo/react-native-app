@@ -9,3 +9,9 @@
 Instructions from: https://expo.io/learn
 
 Map api: https://www.npmjs.com/package/react-native-maps
+
+User login: name: password: (both empty)
+
+Staff login : name: staff@staff.com password: staff
+
+Admin login : name admin@admin.com password: admin
