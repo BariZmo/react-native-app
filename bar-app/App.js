@@ -1,4 +1,4 @@
-<<<<<<< HEADimport React, { useState } from "react";
+import React, { useState } from "react";
 
 import UserMainView from "./User/userMainView";
 import AdminUsersView from "./Admin/adminUsersView";
