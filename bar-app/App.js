@@ -10,6 +10,8 @@ import ReservationView from "./User/reservationsView";
 import AdminView from "./Admin/adminView";
 import AdminUsersView from "./Admin/adminUsersView";
 
+import MapsView from "./SharedItems/mapsView";
+
 export default function App() {
   const [mainState, setMainState] = useState("");
   const [goals, setGoals] = useState([]);
@@ -37,12 +39,15 @@ export default function App() {
       {/*
       <AdminUsersView />
       <HistoryView />
+      <ReservationView show={false} />
       <ReportView />
       <UserMainView />
       <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
 
       */}
-      <ReservationView show={false} />
+      <Text>xeewd</Text>
+      <MapsView style={styles.map} />
+
       <NavBar status={true} role={"admin"} />
     </View>
   );
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "100%",
-    height: "10%",
+    height: "100%",
   },
   profile: {
     width: "100%",
