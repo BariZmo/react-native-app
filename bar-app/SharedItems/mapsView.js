@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
 
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
+import MadeMapStyle from "./mapStyle.json";
 
 export default function (params) {
   return (
     <View style={styles.main}>
       <MapView
         style={styles.map}
+        customMapStyle={MadeMapStyle}
         provider={PROVIDER_GOOGLE}
         region={{
           latitude: 54.687157,
