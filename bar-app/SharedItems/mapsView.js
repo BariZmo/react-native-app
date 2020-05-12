@@ -30,15 +30,7 @@ export default function (params) {
         <Marker
           coordinate={{ latitude: 54.687255, longitude: 25.214918 }}
           description="xdwde"
-        >
-          <Image
-            style={styles.icon}
-            source={{
-              uri:
-                "https://media.istockphoto.com/photos/brunette-young-man-with-chain-picture-id820105644?k=6&m=820105644&s=612x612&w=0&h=08rFDvFrzrxQZwnanG8dK_SFKE5kAdOKlB3emeT0QiU=",
-            }}
-          />
-        </Marker>
+        ></Marker>
         <Marker
           coordinate={{ latitude: 54.680635, longitude: 25.286344 }}
         ></Marker>
@@ -54,7 +46,7 @@ const styles = StyleSheet.create({
   },
   main: {
     width: "100%",
-    height: "80%",
+    height: "100%",
   },
   map: {
     width: "100%",

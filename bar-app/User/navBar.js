@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, ShadowPropTypesIOS } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Button,
+  ShadowPropTypesIOS,
+  Text,
+} from "react-native";
 
 import Component from "./components/navBarComponent";
 
@@ -30,43 +36,53 @@ export default function (props) {
     "pending reservations",
   ]);
 
-  const GetUser = (com) => {
+  const GetUser = (com, setPageNav) => {
     {
       return eval(com).map((component, index) => (
         <View key={component} style={eval("stylesComponents.G" + (index + 1))}>
-          <Button title={component} />
+          <Button
+            style={styles.button}
+            title={component}
+            onPress={
+              com == "userComponentsMain" && index == 1
+                ? () => setPageNav(4)
+                : () => setPageNav(index + 1)
+            }
+          />
         </View>
       ));
     }
   };
 
-  const SelectRole = (state, role) => {
+  const SelectRole = (state, role, setPageNav, value) => {
     var com;
     if (role == "user") {
-      state ? (com = "userComponenets") : (com = "userComponentsMain");
-      return GetUser(com);
+      value != 2 ? (com = "userComponenets") : (com = "userComponentsMain");
     } else if (role == "admin") {
       com = "adminComponenets";
-      return GetUser(com);
     } else if (role == "bar") {
       com = "barComponents";
-      return GetUser(com);
     }
+    return GetUser(com, setPageNav, value);
   };
 
   return (
-    <View style={styles.navBar}>{SelectRole(props.status, props.role)}</View>
+    <View style={styles.navBarr}>
+      {SelectRole(props.status, props.role, props.SetStatus, props.seting)}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  navBar: {
+  navBarr: {
     width: "100%",
-    height: "10%",
+    height: "100%",
     flexDirection: "row",
-    justifyContent: "space-around",
-
+    alignItems: "stretch",
     backgroundColor: "red",
+  },
+  button: {
+    height: "100%",
   },
 });
 
@@ -74,18 +90,21 @@ const stylesComponents = StyleSheet.create({
   //user
   G2: {
     justifyContent: "center",
-    flex: 4,
+    width: "40%",
+    height: "100%",
     backgroundColor: "purple",
   },
 
   G1: {
     justifyContent: "center",
-    flex: 3,
+    width: "30%",
+    height: "100%",
     backgroundColor: "green",
   },
   G3: {
-    flex: 3,
     justifyContent: "center",
+    width: "30%",
+    height: "100%",
     backgroundColor: "blue",
   },
 });

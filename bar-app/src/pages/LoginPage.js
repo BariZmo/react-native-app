@@ -47,7 +47,7 @@ function submit(email, password, navigation) {
     navigation.navigate("AdminPage");
   } else if (email == "staff@staff.com" && password == "staff") {
     navigation.navigate("StaffPage");
-  } else if (email == "user@user.com" && password == "user") {
+  } else if (email == "" && password == "") {
     navigation.navigate("UserPage");
   } else if (email == "" && password == "") {
     navigation.navigate("test");
