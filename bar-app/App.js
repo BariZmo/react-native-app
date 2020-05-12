@@ -22,7 +22,7 @@ export default function App() {
         <Stack.Screen name="AdminPage" component={AdminUsersView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
-        <Stack.Screen name="test" component={reportView} />
+        <Stack.Screen name="test" component={ReportView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
