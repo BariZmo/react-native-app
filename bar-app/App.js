@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
 
-import NavBar from "./User/navBar";
-import UserMainView from "./User/userMainView";
-import ProfileView from "./User/profileView";
-import HistoryView from "./User/historyView";
-import ReportView from "./User/reportView";
-import ReservationView from "./User/reservationsView";
-import AdminView from "./Admin/adminView";
-import AdminUsersView from "./Admin/adminUsersView";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import MapsView from "./SharedItems/mapsView";
+import React from "react";
+import LoginPage from "./src/pages/LoginPage.js";
+import AdminPage from "./src/pages/temp-pages/AdminPage.js";
+import StaffPage from "./src/pages/staff-pages/StaffPage.js";
+import UserPage from "./src/pages/temp-pages/UserPage.js";
+
+const Stack = createStackNavigator();
+
 
 export default function App() {
   const [mainState, setMainState] = useState("");
@@ -35,40 +35,17 @@ export default function App() {
   // NavBar status -> shows state if user in main view (true) or elsewhere (false)
   // NavBar role -> shows what kind of role user has G1={} G2={} G3={} GMap={}
   return (
-    <View style={styles.app}>
-      {/*
-      <AdminUsersView />
-      <HistoryView />
-      <ReservationView show={false} />
-      <ReportView />
-      <UserMainView />
-      <ProfileView userInfo={user} show={false} changeUserInfo={setUser} />
 
-      */}
-      <Text>xeewd</Text>
-      <MapsView style={styles.map} />
-
-      <NavBar status={true} role={"admin"} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="LoginScreen" component={LoginPage} />
+        {/* TODO: change to non-temp admin page */}
+        <Stack.Screen name="AdminPage" component={AdminPage} />
+        <Stack.Screen name="StaffPage" component={StaffPage} />
+        {/* TODO: change to non-temp user page */}
+        <Stack.Screen name="UserPage" component={UserPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  app: {
-    paddingTop: 30,
-    width: "100%",
-    height: "100%",
-    flexDirection: "column",
-
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  map: {
-    width: "100%",
-    height: "100%",
-  },
-  profile: {
-    width: "100%",
-    height: "10%",
-  },
-});
