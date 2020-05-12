@@ -40,8 +40,7 @@ export default function (props) {
   const [reportVisibility, setReportVisibility] = useState(false);
 
   return (
-    <View>
-      <UserMainView />
+    <View style={styles.app}>
       <View style={styles.row}>
         <Text> Id: </Text>
         <Text> {props.userInfo.id}</Text>
@@ -75,13 +74,25 @@ export default function (props) {
         ) : null}
       </View>
 
-      <View>
+      <View style={styles.buttonView}>
         <Button
+          style={styles.button}
           title={isChangeMode ? "Confirm changes" : "Change profile info"}
           onPress={isChangeMode ? saveChanges : selectChangeMode}
         />
         {isChangeMode ? (
-          <Button title="Back" onPress={selectChangeMode} />
+          <Button
+            style={styles.button}
+            title="Back"
+            onPress={selectChangeMode}
+          />
+        ) : null}
+        {!isChangeMode ? (
+          <Button
+            style={styles.button}
+            title="Report bug"
+            onPress={() => setReportVisibility(true)}
+          />
         ) : null}
       </View>
 
@@ -89,23 +100,33 @@ export default function (props) {
         Visibility={reportVisibility}
         SetVisibility={setReportVisibility}
       />
-      {!isChangeMode ? (
-        <Button title="Report bug" onPress={() => setReportVisibility(true)} />
-      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  app: {
+    height: "100%",
+    alignItems: "center",
+  },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    marginVertical: "1%",
     backgroundColor: "grey",
     alignItems: "center",
-    width: "50%",
+    width: "100%",
+    height: "10%",
   },
   input: {
     backgroundColor: "grey",
+  },
+  button: {
+    height: "15%",
+    marginVertical: "5%",
+    backgroundColor: "blue",
+  },
+  buttonView: {
+    marginVertical: "5%",
   },
   normalModal: {
     alignItems: "center",

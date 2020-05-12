@@ -11,7 +11,7 @@ export default function () {
         }}
         style={styles.img}
       />
-      <Text style={styles.text}>Mantas Radzi</Text>
+      <Text style={styles.text}>Stasius povlovskis</Text>
     </View>
   );
 }
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   view: {
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: "10%",
   },
   img: {
     width: 200,
@@ -27,5 +28,10 @@ const styles = StyleSheet.create({
     borderRadius: 400,
     position: "relative",
     justifyContent: "center",
+    borderWidth: 5,
+    borderColor: "#99FF11",
+  },
+  text: {
+    marginTop: "5%",
   },
 });
