@@ -7,4 +7,4 @@
 - (optional) install [Expo](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en)
 
 Instructions from: https://expo.io/learn
-Map api: https://www.npmjs.com/package/react-native-maps
+###Map api: https://www.npmjs.com/package/react-native-maps
