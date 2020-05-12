@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+<<<<<<< HEADimport React, { useState } from "react";
 
 import UserMainView from "./User/userMainView";
 import AdminUsersView from "./Admin/adminUsersView";
 
+import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
