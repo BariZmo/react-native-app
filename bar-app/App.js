@@ -6,7 +6,6 @@ import AdminUsersView from "./Admin/adminUsersView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import React from "react";
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
 
