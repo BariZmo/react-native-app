@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
+import { Text, View, Button, TextInput, Modal } from "react-native";
 
 ///BUGS -> inputs doesnt refresh when closed and opened again
 
