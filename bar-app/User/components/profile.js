@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: "5%",
+    color: "white",
   },
 });

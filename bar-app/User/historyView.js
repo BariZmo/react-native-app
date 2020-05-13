@@ -17,6 +17,12 @@ export default function (props) {
   const [infoArray, setInfoArray] = useState([
     { id: 1, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
     { id: 2, date: "2020 - 05 - 10", bar: "solento", money: 50 },
+    { id: 3, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
+    { id: 4, date: "2020 - 05 - 10", bar: "solento", money: 50 },
+    { id: 5, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
+    { id: 6, date: "2020 - 05 - 10", bar: "solento", money: 50 },
+    { id: 7, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
+    { id: 8, date: "2020 - 05 - 10", bar: "solento", money: 50 },
   ]);
 
   const [currentId, setCurrentId] = useState({
@@ -104,9 +110,12 @@ export default function (props) {
         renderItem={({ item }) => <Item infoElement={item} />}
         keyExtractor={(item) => item.id}
       />
-      <View style={styles.clearButton}>
-        <Button title="Išvalyti istorija" onPress={() => ClearHistory()} />
-      </View>
+      <TouchableOpacity
+        style={styles.clearButton}
+        onPress={() => ClearHistory()}
+      >
+        <Text style={styles.clearText}> Išvalyti istorija</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -116,12 +125,15 @@ const styles = StyleSheet.create({
     marginTop: "10%",
     height: "85%",
     alignItems: "center",
+    width: "100%",
   },
   modal: {
     width: "80%",
     height: "80%",
-    backgroundColor: "white",
+    backgroundColor: "#ECA80B",
     borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 4,
     alignItems: "center",
     justifyContent: "space-between",
     left: "10%",
@@ -136,26 +148,34 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     paddingVertical: "5%",
-    backgroundColor: "teal",
-    textDecorationColor: "yellow",
-    textShadowColor: "red",
-    textShadowRadius: 1,
-    borderColor: "green",
+    backgroundColor: "#ECA80B",
+    textDecorationColor: "black",
+    textShadowColor: "white",
+    textShadowRadius: 10,
+    borderColor: "black",
     borderRadius: 10,
     borderStyle: "solid",
     borderWidth: 2,
   },
   list: {
-    width: "100%",
+    width: "90%",
     height: "80%",
 
     top: "2%",
   },
   clearButton: {
     borderRadius: 10,
-    backgroundColor: "red",
-    height: "20%",
+    backgroundColor: "#ECA80B",
+    height: "10%",
     width: "80%",
+    top: "5%",
+    alignItems: "center",
+    borderColor: "black",
+    borderWidth: 2,
+  },
+  clearText: {
+    fontSize: 20,
+    top: "25%",
   },
   row: {
     flexDirection: "row",

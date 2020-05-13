@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   app: {
     width: "100%",
     height: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#033033",
     alignItems: "center",
   },
 

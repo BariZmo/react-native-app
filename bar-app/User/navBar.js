@@ -130,21 +130,22 @@ const stylesComponents = StyleSheet.create({
     justifyContent: "center",
     width: "40%",
     height: "100%",
-    backgroundColor: "grey",
+    backgroundColor: "#ECA80B",
     borderColor: "black",
-    borderWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
   },
 
   G1: {
     justifyContent: "center",
     width: "30%",
     height: "100%",
-    backgroundColor: "grey",
+    backgroundColor: "#ECA80B",
   },
   G3: {
     justifyContent: "center",
     width: "30%",
     height: "100%",
-    backgroundColor: "grey",
+    backgroundColor: "#ECA80B",
   },
 });
