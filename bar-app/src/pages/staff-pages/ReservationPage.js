@@ -56,7 +56,7 @@ export default function () {
           longQueryPlaceholder={`Pvz. "Nedirbsime"`}
           sendHandler={(type, description) => {
             // TODO:
-            // a) send a message to admin
+            // a) send a message to user
             // b) get success value
             setMessagePageOpen(false);
             let success = true;
