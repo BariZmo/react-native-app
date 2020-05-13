@@ -47,6 +47,10 @@ export default function (props) {
     updatedInfo.money = sum;
   };
 
+  const ClearHistory = () => {
+    setInfoArray([]);
+  };
+
   function Item({ infoElement }) {
     return (
       <View>
@@ -92,17 +96,23 @@ export default function (props) {
       </Modal>
 
       <FlatList
+        style={styles.list}
         data={infoArray}
         renderItem={({ item }) => <Item infoElement={item} />}
         keyExtractor={(item) => item.id}
       />
+      <View style={styles.clearButton}>
+        <Button title="Išvalyti istorija" onPress={() => ClearHistory()} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   main: {
-    height: "50%",
+    marginTop: "10%",
+    height: "85%",
+    alignItems: "center",
   },
   touchable: {
     width: "100%",
@@ -119,6 +129,14 @@ const styles = StyleSheet.create({
   },
   list: {
     width: "100%",
+    height: "80%",
+    backgroundColor: "green",
+  },
+  clearButton: {
+    borderRadius: 10,
+    backgroundColor: "red",
+    height: "20%",
+    width: "80%",
   },
   row: {
     flexDirection: "row",

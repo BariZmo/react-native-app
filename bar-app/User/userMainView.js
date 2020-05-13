@@ -48,10 +48,6 @@ export default function (props) {
             />
           ) : null}
         </View>
-
-        <View style={styles.nav}>
-          <NavBar status={true} role={role} />
-        </View>
       </View>
     );
   };
@@ -70,14 +66,6 @@ export default function (props) {
             <Map />
           </View>
         ) : null}
-        <View style={styles.nav}>
-          <NavBar
-            status={true}
-            role={"user"}
-            SetStatus={setPageNav}
-            seting={pageNav}
-          />
-        </View>
       </View>
     );
   };

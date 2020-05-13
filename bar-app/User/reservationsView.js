@@ -9,6 +9,8 @@ import {
   TextComponent,
   Modal,
 } from "react-native";
+import { GestureHandler } from "expo";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // *sort by date
 
@@ -23,20 +25,26 @@ export default function (props) {
 
   const [modalVisibility, setModalVisibility] = useState(false);
 
+  const LeftActions = (progress, dragX) => {
+    return (
+      <View style={styles.leftBack}>
+        <Text style={styles.leftText}>REMOVE</Text>
+      </View>
+    );
+  };
+
   function Item({ infoElement }) {
     return (
-      <View>
-        <View style={styles.spacer}></View>
-        <TouchableOpacity
-          style={styles.touchable}
-          onPress={() => setModalVisibility(true)}
-        >
-          <Text>Bar: {infoElement.bar}</Text>
-          <Text>DATE: {infoElement.date}</Text>
-          <Text>Time left: </Text>
-        </TouchableOpacity>
-        <Button title="Atsaukti" />
-      </View>
+      <Swipeable renderLeftActions={LeftActions}>
+        <View>
+          <View style={styles.spacer}></View>
+          <View style={styles.touchable}>
+            <Text>Bar: {infoElement.bar}</Text>
+            <Text>DATE: {infoElement.date}</Text>
+            <Text>Time left: </Text>
+          </View>
+        </View>
+      </Swipeable>
     );
   }
   // detailed info product - price
@@ -54,7 +62,8 @@ export default function (props) {
 
 const styles = StyleSheet.create({
   main: {
-    height: "50%",
+    height: "90%",
+    marginTop: "10%",
   },
   touchable: {
     width: "100%",
@@ -82,14 +91,11 @@ const styles = StyleSheet.create({
     paddingTop: "5%",
   },
 
-  elementID: {
-    width: "250",
+  leftBack: {
+    backgroundColor: "yellow",
+    alignItems: "center",
+    height: "100%",
+    top: "5%",
   },
-  elementDate: {
-    width: "250",
-  },
-  elementBar: {
-    width: "250",
-    paddingHorizontal: 50,
-  },
+  leftText: { top: "25%" },
 });
