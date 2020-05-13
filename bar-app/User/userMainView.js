@@ -32,7 +32,7 @@ export default function (props) {
     number: 112,
     rating: 10,
     password: "Bestukas",
-    blockTime: 0,
+    ban: 0,
   });
 
   const MainPage = (role) => {
@@ -41,7 +41,10 @@ export default function (props) {
         {profileVisible ? (
           <View style={styles.touch}>
             <TouchableOpacity onPress={() => setPage(!page)}>
-              <Profile profileVisibility={profileVisible} />
+              <Profile
+                profileVisibility={profileVisible}
+                isBlocked={user.ban == 0 ? false : true}
+              />
             </TouchableOpacity>
           </View>
         ) : null}

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import ReportView from "./ReportView";
-import UserMainView from "./userMainView";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function (props) {
   const [isChangeMode, setChangeMode] = useState(false);
@@ -48,7 +48,7 @@ export default function (props) {
       ["number"]: numberValue,
       ["rating"]: props.userInfo.rating,
       ["password"]: passwordValue,
-      ["blockTime"]: props.userInfo.blockTime,
+      ["ban"]: props.userInfo.ban,
     });
   };
 
@@ -62,7 +62,7 @@ export default function (props) {
   const InfoView = (setProfVisibility) => {
     setProfVisibility(!isChangeMode);
     return (
-      <View>
+      <View style={styles.app}>
         <View style={styles.texts}>
           {!isChangeMode ? (
             <View style={styles.row}>
@@ -116,24 +116,32 @@ export default function (props) {
           </View>
         </View>
         <View style={styles.buttonView}>
-          <Button
+          <TouchableOpacity
             style={styles.button}
             title={isChangeMode ? "Confirm changes" : "Change profile info"}
             onPress={isChangeMode ? saveChanges : selectChangeMode}
-          />
+          >
+            <Text style={styles.buttonText}>
+              {isChangeMode ? "Patvirtinti" : "Keisti profilio duomenis"}
+            </Text>
+          </TouchableOpacity>
           {isChangeMode ? (
-            <Button
+            <TouchableOpacity
               style={styles.button}
-              title="Back"
+              title="Grįžti"
               onPress={selectChangeMode}
-            />
+            >
+              <Text style={styles.buttonText}>Grįžti</Text>
+            </TouchableOpacity>
           ) : null}
           {!isChangeMode ? (
-            <Button
+            <TouchableOpacity
               style={styles.button}
-              title="Report bug"
+              title="Pranešti apie klaidą"
               onPress={() => ReportOpen(setProfVisibility)}
-            />
+            >
+              <Text style={styles.buttonText}>Pranešti apie klaidą</Text>
+            </TouchableOpacity>
           ) : null}
         </View>
       </View>
@@ -162,8 +170,8 @@ const styles = StyleSheet.create({
   },
   texts: {
     alignItems: "center",
-    width: "60%",
-    height: "60%",
+    bottom: "20%",
+    height: "70%",
     backgroundColor: "#ECA80B",
     borderRadius: 20,
     borderColor: "black",
@@ -177,24 +185,37 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     alignItems: "center",
     width: "100%",
-    height: "10%",
+    height: "20%",
   },
   input: {
     backgroundColor: "#ECA80B",
     borderColor: "black",
     borderBottomWidth: 1,
-    height: "160%",
+    height: "120%",
     marginLeft: "1%",
+    backgroundColor: "transparent",
   },
   button: {
-    height: "15%",
-    marginVertical: "5%",
-    backgroundColor: "blue",
+    height: "60%",
+    backgroundColor: "#ECA80B",
+    borderRadius: 10,
+    borderColor: "black",
+    alignItems: "center",
+    borderWidth: 3,
   },
   buttonView: {
-    marginVertical: "5%",
+    marginTop: "2%",
+    width: "75%",
+    height: "60%",
+    bottom: "10%",
   },
   normalModal: {
     alignItems: "center",
+  },
+  buttonText: {
+    alignItems: "center",
+    color: "black",
+    top: "15%",
+    fontSize: 20,
   },
 });
