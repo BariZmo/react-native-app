@@ -52,11 +52,8 @@ export default function (props) {
     });
     return (
       <View style={styles.rightBack}>
-        <TouchableOpacity>
-          <Animated.Text
-            style={[styles.rightText, { transform: [{ scale }] }]}
-            onPress={() => DeleteAction(index)}
-          >
+        <TouchableOpacity onPress={() => DeleteAction(index)}>
+          <Animated.Text style={[styles.rightText, { transform: [{ scale }] }]}>
             Atšaukti
           </Animated.Text>
         </TouchableOpacity>
@@ -65,12 +62,9 @@ export default function (props) {
   };
 
   const DeleteAction = (index) => {
-    console.log(index + "xde");
-    // var arr = infoArray.list.filter((x) => x != index);
-    // console.log(arr + "xde");
-    // arr.splice(index, 1);
-    //  setInfoArray(arr);
-    setInfoArray([]);
+    var arr = infoArray;
+    arr.splice(index, 1);
+    setInfoArray([...arr]);
   };
 
   function Item({ infoElement, infoIndex }) {
@@ -115,6 +109,10 @@ const styles = StyleSheet.create({
   main: {
     height: "90%",
     marginTop: "10%",
+  },
+  swipeTouch: {
+    width: "100%",
+    height: "20%",
   },
   touchable: {
     width: "100%",
