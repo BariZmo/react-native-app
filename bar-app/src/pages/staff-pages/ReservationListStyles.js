@@ -61,6 +61,9 @@ const itemStyles = StyleSheet.create({
   evaluateButton: {
     backgroundColor: "yellow",
   },
+  sendButton: {
+    backgroundColor: "moccasin",
+  },
   acceptButton: {
     backgroundColor: "palegreen",
   },

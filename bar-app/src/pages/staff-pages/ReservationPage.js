@@ -31,6 +31,18 @@ export default function () {
     setMenuOpen(true);
   };
 
+  const sendHandler = (id) => {
+    setSelectedItem(id);
+    // TODO: open reportView
+    console.log("send");
+  };
+
+  const evaluateHandler = (id) => {
+    setSelectedItem(id);
+    // TODO: open evaluationView
+    console.log("evaluate");
+  };
+
   return (
     <View style={styles.container}>
       {reservations.length == 0 ? (
@@ -93,6 +105,8 @@ export default function () {
             item={item}
             removeHandler={removeHandler}
             openHandler={openHandler}
+            sendHandler={sendHandler}
+            evaluateHandler={evaluateHandler}
           />
         )}
       ></FlatList>
@@ -117,15 +131,35 @@ function getReservation(reservations, id) {
     };
 }
 
-function ListItem({ item, removeHandler, openHandler }) {
+function ListItem({
+  item,
+  removeHandler,
+  openHandler,
+  sendHandler,
+  evaluateHandler,
+}) {
   return (
     <View style={itemStyles.item}>
       <View style={itemStyles.firstRow}>
         <Text style={itemStyles.name}>{item.name}</Text>
-        <Text style={itemStyles.detail}>
-          Reikalinga {item.otherPeople + 1} vieta(-os).
-        </Text>
-        <View style={{ width: 75 }}></View>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={[itemStyles.sendButton, itemStyles.buttonStyle]}
+          onPress={() => {
+            sendHandler(item.id);
+          }}
+        >
+          <Text>Siųsti</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={[itemStyles.evaluateButton, itemStyles.buttonStyle]}
+          onPress={() => {
+            evaluateHandler(item.id);
+          }}
+        >
+          <Text>Įvertinti</Text>
+        </TouchableOpacity>
       </View>
       <View style={itemStyles.firstRow}>
         <Text style={itemStyles.detail}>Atvykimo laikas: {item.date}</Text>
