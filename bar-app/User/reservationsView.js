@@ -52,7 +52,10 @@ export default function (props) {
     });
     return (
       <View style={styles.rightBack}>
-        <TouchableOpacity onPress={() => DeleteAction(index)}>
+        <TouchableOpacity
+          style={styles.swipeTouch}
+          onPress={() => DeleteAction(index)}
+        >
           <Animated.Text style={[styles.rightText, { transform: [{ scale }] }]}>
             Atšaukti
           </Animated.Text>
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
   },
   swipeTouch: {
     width: "100%",
-    height: "20%",
+    height: "100%",
   },
   touchable: {
     width: "100%",
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
     top: "5%",
   },
   rightText: {
-    top: "70%",
+    top: "25%",
     fontWeight: "900",
     marginLeft: "75%",
   },
