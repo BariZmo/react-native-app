@@ -8,6 +8,7 @@ import {
   FlatList,
   TextComponent,
   Modal,
+  Keyboard,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,6 +23,7 @@ import HistoryView from "./historyView";
 export default function (props) {
   const [page, setPage] = useState(false);
   const [pageNav, setPageNav] = useState(2);
+  const [profileVisible, setProfileVisible] = useState(true);
 
   const [user, setUser] = useState({
     id: 10,
@@ -29,22 +31,27 @@ export default function (props) {
     email: "mantas@et.lt",
     number: 112,
     rating: 10,
+    password: "Bestukas",
+    blockTime: 0,
   });
 
   const MainPage = (role) => {
     return (
       <View style={styles.app}>
-        <View style={styles.touch}>
-          <TouchableOpacity onPress={() => setPage(!page)}>
-            <Profile />
-          </TouchableOpacity>
-        </View>
+        {profileVisible ? (
+          <View style={styles.touch}>
+            <TouchableOpacity onPress={() => setPage(!page)}>
+              <Profile profileVisibility={profileVisible} />
+            </TouchableOpacity>
+          </View>
+        ) : null}
         <View style={styles.popup}>
           {page ? (
             <ProfileView
               userInfo={user}
               show={false}
               changeUserInfo={setUser}
+              SetProfile={setProfileVisible}
             />
           ) : null}
         </View>

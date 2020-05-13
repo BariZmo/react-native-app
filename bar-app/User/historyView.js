@@ -84,14 +84,17 @@ export default function (props) {
 
   return (
     <View style={styles.main}>
-      <Modal visible={modalVisibility} animationType="slide">
-        <View>
-          <FlatList
-            data={spendInfo}
-            renderItem={({ item }) => <VisitInfo infoElement={item} />}
-            keyExtractor={(item) => item.identityid}
-          />
-          <Button title="go back" onPress={() => setModalVisibility(false)} />
+      <Modal visible={modalVisibility} animationType="fade" transparent={true}>
+        <View style={styles.modalBackground}>
+          <View style={styles.modal}>
+            <FlatList
+              style={styles.list}
+              data={spendInfo}
+              renderItem={({ item }) => <VisitInfo infoElement={item} />}
+              keyExtractor={(item) => item.identityid}
+            />
+            <Button title="go back" onPress={() => setModalVisibility(false)} />
+          </View>
         </View>
       </Modal>
 
@@ -114,6 +117,21 @@ const styles = StyleSheet.create({
     height: "85%",
     alignItems: "center",
   },
+  modal: {
+    width: "80%",
+    height: "80%",
+    backgroundColor: "white",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "space-between",
+    left: "10%",
+    top: "5%",
+  },
+  modalBackground: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(52, 52, 52, 0.6)",
+  },
   touchable: {
     width: "100%",
     flexDirection: "row",
@@ -130,7 +148,8 @@ const styles = StyleSheet.create({
   list: {
     width: "100%",
     height: "80%",
-    backgroundColor: "green",
+
+    top: "2%",
   },
   clearButton: {
     borderRadius: 10,

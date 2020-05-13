@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, Text, Modal, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Button,
+  Text,
+  Modal,
+  TextInput,
+  Keyboard,
+} from "react-native";
 
 import ReportView from "./ReportView";
 import UserMainView from "./userMainView";
@@ -18,6 +26,7 @@ export default function (props) {
 
   const [emailValue, setEmailValue] = useState(props.userInfo.email);
   const [numberValue, setNumberValue] = useState(props.userInfo.number);
+  const [passwordValue, setPasswordValue] = useState(props.userInfo.password);
 
   const emailValueHandler = (enteredEmail) => {
     setEmailValue(enteredEmail);
@@ -27,6 +36,10 @@ export default function (props) {
     setNumberValue(enteredNumber);
   };
 
+  const passwordValueHandler = (eneteredPassword) => {
+    setPasswordValue(eneteredPassword);
+  };
+
   const userInfoHandler = () => {
     props.changeUserInfo({
       ["id"]: props.userInfo.id,
@@ -34,27 +47,40 @@ export default function (props) {
       ["email"]: emailValue,
       ["number"]: numberValue,
       ["rating"]: props.userInfo.rating,
+      ["password"]: passwordValue,
+      ["blockTime"]: props.userInfo.blockTime,
     });
   };
 
   const [reportVisibility, setReportVisibility] = useState(false);
 
-  const InfoView = () => {
+  const ReportOpen = (setProfVisibility) => {
+    setReportVisibility(true);
+    setProfVisibility(false);
+  };
+
+  const InfoView = (setProfVisibility) => {
+    setProfVisibility(!isChangeMode);
     return (
       <View>
-        <View style={styles.row}>
-          <Text> Id: </Text>
-          <Text> {props.userInfo.id}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text> Rating: </Text>
-          <Text> {props.userInfo.rating} </Text>
-        </View>
+        {!isChangeMode ? (
+          <View style={styles.row}>
+            <Text> Id: </Text>
+            <Text> {props.userInfo.id}</Text>
+          </View>
+        ) : null}
+        {!isChangeMode ? (
+          <View style={styles.row}>
+            <Text> Rating: </Text>
+            <Text> {props.userInfo.rating} </Text>
+          </View>
+        ) : null}
         <View style={styles.row}>
           <Text> Number: </Text>
-          <Text> {props.userInfo.number} </Text>
+          {!isChangeMode ? <Text> {props.userInfo.number} </Text> : null}
           {isChangeMode ? (
             <TextInput
+              keyboardType={"phone-pad"}
               style={styles.input}
               placeholder={String(props.userInfo.number)}
               onChangeText={numberValueHandler}
@@ -62,15 +88,28 @@ export default function (props) {
             />
           ) : null}
         </View>
+
         <View style={styles.row}>
           <Text> Email: </Text>
-          <Text> {props.userInfo.email} </Text>
+          {!isChangeMode ? <Text> {props.userInfo.email} </Text> : null}
           {isChangeMode ? (
             <TextInput
               style={styles.input}
               placeholder={props.userInfo.email}
               onChangeText={emailValueHandler}
               value={emailValue}
+            />
+          ) : null}
+        </View>
+        <View style={styles.row}>
+          <Text> Password: </Text>
+          {!isChangeMode ? <Text> {props.userInfo.password} </Text> : null}
+          {isChangeMode ? (
+            <TextInput
+              style={styles.input}
+              placeholder={props.userInfo.password}
+              onChangeText={passwordValueHandler}
+              value={passwordValue}
             />
           ) : null}
         </View>
@@ -92,7 +131,7 @@ export default function (props) {
             <Button
               style={styles.button}
               title="Report bug"
-              onPress={() => setReportVisibility(true)}
+              onPress={() => ReportOpen(setProfVisibility)}
             />
           ) : null}
         </View>
@@ -103,7 +142,7 @@ export default function (props) {
   return (
     <View style={styles.app}>
       {!reportVisibility ? (
-        InfoView()
+        InfoView(props.SetProfile)
       ) : (
         <ReportView
           Visibility={reportVisibility}

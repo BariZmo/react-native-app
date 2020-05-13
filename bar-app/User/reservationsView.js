@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: "yellow",
     borderRadius: 15,
 
-    height: "100%",
+    height: "80%",
     top: "5%",
     flex: 1,
   },
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     borderRadius: 15,
     flex: 1,
-    height: "100%",
-    top: "5%",
+    height: "80%",
+    marginTop: "5%",
   },
   rightText: {
     top: "25%",

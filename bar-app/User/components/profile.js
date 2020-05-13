@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 
-export default function () {
-  return (
+export default function (props) {
+  return props.profileVisibility ? (
     <View style={styles.view}>
       <Image
         source={{
@@ -13,7 +13,7 @@ export default function () {
       />
       <Text style={styles.text}>Stasius povlovskis</Text>
     </View>
-  );
+  ) : null;
 }
 
 const styles = StyleSheet.create({
