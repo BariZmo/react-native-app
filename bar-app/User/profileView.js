@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Button, Text, Modal, TextInput } from "react-native";
 
-import ReportView from "./reportView";
-import UserMainView from "./userMainView";
-
 export default function (props) {
   const [isChangeMode, setChangeMode] = useState(false);
 
@@ -95,11 +92,6 @@ export default function (props) {
           />
         ) : null}
       </View>
-
-      <ReportView
-        Visibility={reportVisibility}
-        SetVisibility={setReportVisibility}
-      />
     </View>
   );
 }

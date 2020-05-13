@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, BackHandler, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  BackHandler,
+  Image,
+  Alert,
+} from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { SampleBars } from "./SampleBars";
 import ReportView from "./../../../User/ReportView";
@@ -16,10 +23,40 @@ export default function () {
     <View>
       {errorPageOpen == true ? (
         <ReportView
+          title={"Įveskite atsiradusios klaidos aprašymą:"}
+          shortQuery={"Klaidos tipas:"}
+          shortQueryPlaceholder={`Pvz. "Neteisingi duomenys sistemoje"`}
+          longQuery={"Klaidos apibūdinimas:"}
+          longQueryPlaceholder={`Pvz. "Pateikiami neteisingi paskyros duomenys"`}
           sendHandler={(type, description) => {
-            // TODO: send a message to admin
-            console.log(`Entered ${type} ${description}`);
+            // TODO:
+            // a) send a message to admin
+            // b) get success value
             setErrorPageOpen(false);
+            success = true;
+            if (success) {
+              Alert.alert(
+                "Pranešimas:",
+                "Klaidos pranešimas sėkmingai išsiųstas.",
+                [
+                  {
+                    text: "Tęsti",
+                    onPress: () => {},
+                  },
+                ]
+              );
+            } else {
+              Alert.alert(
+                "Pranešimas:",
+                "Klaidos pranešimo išsiųsti nepavyko.",
+                [
+                  {
+                    text: "Tęsti",
+                    onPress: () => {},
+                  },
+                ]
+              );
+            }
           }}
           cancelHandler={() => {
             setErrorPageOpen(false);
