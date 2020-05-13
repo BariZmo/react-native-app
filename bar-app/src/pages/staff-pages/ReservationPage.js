@@ -7,10 +7,12 @@ import {
   Modal,
   TouchableOpacity,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import {} from "react-native-gesture-handler";
 import { SampleAcceptedReservations } from "./SampleAcceptedReservations";
 import { styles, itemStyles, modalStyles } from "./ReservationListStyles";
+import ReportView from "../../../User/ReportView";
 
 export default function () {
   BackHandler.addEventListener("hardwareBackPress", () => true);
@@ -19,6 +21,7 @@ export default function () {
   // selectedItem is identified by id
   const [selectedItem, setSelectedItem] = useState(-1);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [messagePageOpen, setMessagePageOpen] = useState(false);
 
   const removeHandler = (id) => {
     setReservations((prevReservations) => {
@@ -33,8 +36,7 @@ export default function () {
 
   const sendHandler = (id) => {
     setSelectedItem(id);
-    // TODO: open reportView
-    console.log("send");
+    setMessagePageOpen(true);
   };
 
   const evaluateHandler = (id) => {
@@ -45,71 +47,109 @@ export default function () {
 
   return (
     <View style={styles.container}>
-      {reservations.length == 0 ? (
-        <Text style={styles.title}>
-          Nepraėjusių patvirtintų rezervacijų nerasta.
-        </Text>
+      {messagePageOpen == true ? (
+        <ReportView
+          title={"Sukurkite norimą pranešimą:"}
+          shortQuery={"Pranešimo tema:"}
+          shortQueryPlaceholder={`Pvz. "Jūsų apsilankymo laikas"`}
+          longQuery={"Pranešimo tekstas:"}
+          longQueryPlaceholder={`Pvz. "Nedirbsime"`}
+          sendHandler={(type, description) => {
+            // TODO:
+            // a) send a message to admin
+            // b) get success value
+            setMessagePageOpen(false);
+            let success = true;
+            if (success) {
+              Alert.alert("Pranešimas:", "Pranešimas sėkmingai išsiųstas.", [
+                {
+                  text: "Tęsti",
+                  onPress: () => {},
+                },
+              ]);
+            } else {
+              Alert.alert("Pranešimas:", "Pranešimo išsiųsti nepavyko.", [
+                {
+                  text: "Tęsti",
+                  onPress: () => {},
+                },
+              ]);
+            }
+          }}
+          cancelHandler={() => {
+            setMessagePageOpen(false);
+          }}
+        ></ReportView>
       ) : (
-        <Text style={styles.title}>
-          Viso {reservations.length} nepraėjusios patvirtinta(-os) rezervacijos:
-        </Text>
-      )}
-      <Modal
-        style={modalStyles.modal}
-        transparent={true}
-        visible={menuOpen}
-        onRequestClose={() => {
-          setMenuOpen(false);
-        }}
-      >
-        <View style={modalStyles.modalBase}>
-          <TouchableHighlight
-            style={modalStyles.continueButton}
-            activeOpacity={0.5}
-            onPress={() => {
-              setTimeout(function () {
-                setMenuOpen(false);
-              }, 1);
+        <View>
+          {reservations.length == 0 ? (
+            <Text style={styles.title}>
+              Nepraėjusių patvirtintų rezervacijų nerasta.
+            </Text>
+          ) : (
+            <Text style={styles.title}>
+              Viso {reservations.length} nepraėjusios patvirtinta(-os)
+              rezervacijos:
+            </Text>
+          )}
+          <Modal
+            style={modalStyles.modal}
+            transparent={true}
+            visible={menuOpen}
+            onRequestClose={() => {
+              setMenuOpen(false);
             }}
-            underlayColor={"white"}
           >
-            <Text>Tęsti</Text>
-          </TouchableHighlight>
-          <Text style={modalStyles.entry}>
-            Atvykimo data: {getReservation(reservations, selectedItem).date}
-          </Text>
-          <Text style={modalStyles.entry}>
-            El. paštas: {getReservation(reservations, selectedItem).email}
-          </Text>
-          <Text style={modalStyles.entry}>
-            Tel. nr.: {getReservation(reservations, selectedItem).number}
-          </Text>
-          <Text style={modalStyles.entry}>
-            Viso lankytojų:{" "}
-            {getReservation(reservations, selectedItem).otherPeople + 1}
-          </Text>
-          <Text style={modalStyles.name}>
-            {getReservation(reservations, selectedItem).name +
-              " " +
-              getReservation(reservations, selectedItem).surname}
-          </Text>
-          <Text style={modalStyles.title}>
-            Išsami informacija apie lankytoją:
-          </Text>
+            <View style={modalStyles.modalBase}>
+              <TouchableHighlight
+                style={modalStyles.continueButton}
+                activeOpacity={0.5}
+                onPress={() => {
+                  setTimeout(function () {
+                    setMenuOpen(false);
+                  }, 1);
+                }}
+                underlayColor={"white"}
+              >
+                <Text>Tęsti</Text>
+              </TouchableHighlight>
+              <Text style={modalStyles.entry}>
+                Atvykimo data: {getReservation(reservations, selectedItem).date}
+              </Text>
+              <Text style={modalStyles.entry}>
+                El. paštas: {getReservation(reservations, selectedItem).email}
+              </Text>
+              <Text style={modalStyles.entry}>
+                Tel. nr.: {getReservation(reservations, selectedItem).number}
+              </Text>
+              <Text style={modalStyles.entry}>
+                Viso lankytojų:{" "}
+                {getReservation(reservations, selectedItem).otherPeople + 1}
+              </Text>
+              <Text style={modalStyles.name}>
+                {getReservation(reservations, selectedItem).name +
+                  " " +
+                  getReservation(reservations, selectedItem).surname}
+              </Text>
+              <Text style={modalStyles.title}>
+                Išsami informacija apie lankytoją:
+              </Text>
+            </View>
+          </Modal>
+          <FlatList
+            data={reservations}
+            renderItem={({ item }) => (
+              <ListItem
+                item={item}
+                removeHandler={removeHandler}
+                openHandler={openHandler}
+                sendHandler={sendHandler}
+                evaluateHandler={evaluateHandler}
+              />
+            )}
+          ></FlatList>
         </View>
-      </Modal>
-      <FlatList
-        data={reservations}
-        renderItem={({ item }) => (
-          <ListItem
-            item={item}
-            removeHandler={removeHandler}
-            openHandler={openHandler}
-            sendHandler={sendHandler}
-            evaluateHandler={evaluateHandler}
-          />
-        )}
-      ></FlatList>
+      )}
     </View>
   );
 }

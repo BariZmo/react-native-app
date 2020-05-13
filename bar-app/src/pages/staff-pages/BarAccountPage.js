@@ -33,7 +33,7 @@ export default function () {
             // a) send a message to admin
             // b) get success value
             setErrorPageOpen(false);
-            success = true;
+            let success = true;
             if (success) {
               Alert.alert(
                 "Pranešimas:",
