@@ -20,6 +20,16 @@ export default function (props) {
   const [infoArray, setInfoArray] = useState([
     { id: 1, date: "2020 - 08 - 08", bar: "stikliai", confirmed: true },
     { id: 2, date: "2020 - 05 - 10", bar: "solento", confirmed: false },
+    { id: 3, date: "2020 - 08 - 08", bar: "tv", confirmed: true },
+    { id: 4, date: "2020 - 05 - 10", bar: "bokstas", confirmed: false },
+    { id: 5, date: "2020 - 08 - 08", bar: "pasaku", confirmed: true },
+    { id: 6, date: "2020 - 05 - 10", bar: "parkas", confirmed: false },
+    { id: 7, date: "2020 - 08 - 08", bar: "gedimino", confirmed: true },
+    { id: 8, date: "2020 - 05 - 10", bar: "pilis", confirmed: false },
+    { id: 9, date: "2020 - 08 - 08", bar: "inkilu", confirmed: true },
+    { id: 10, date: "2020 - 05 - 10", bar: "rojus", confirmed: false },
+    { id: 11, date: "2020 - 08 - 08", bar: "gatves", confirmed: true },
+    { id: 12, date: "2020 - 05 - 10", bar: "virtis", confirmed: false },
   ]);
 
   const [info, setInfo] = useState();
@@ -82,12 +92,19 @@ export default function (props) {
           <RightActions progress={progress} dragX={dragX} index={infoIndex} />
         )}
       >
-        <View>
-          <View style={styles.spacer}></View>
-          <View style={styles.touchable}>
-            <Text>Bar: {infoElement.bar}</Text>
-            <Text>DATE: {infoElement.date}</Text>
-            <Text>Time left: </Text>
+        <View style={styles.spacer}></View>
+        <View style={styles.touchable}>
+          <View>
+            <View style={styles.row}>
+              <Text style={styles.constText}>Baras: </Text>
+              <Text style={styles.dynamicText}>{infoElement.bar}</Text>
+            </View>
+          </View>
+          <View>
+            <View style={styles.row}>
+              <Text style={styles.constText}>Data: </Text>
+              <Text style={styles.dynamicText}>{infoElement.date}</Text>
+            </View>
           </View>
         </View>
       </Swipeable>
@@ -111,16 +128,21 @@ export default function (props) {
 const styles = StyleSheet.create({
   main: {
     height: "90%",
+    width: "80%",
     marginTop: "10%",
   },
   swipeTouch: {
     width: "100%",
     height: "100%",
   },
+  swipeMain: {
+    backgroundColor: "red",
+  },
   touchable: {
     width: "100%",
-    flexDirection: "row",
-    paddingVertical: "5%",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingVertical: "2%",
     backgroundColor: "#ECA80B",
     textDecorationColor: "yellow",
     textShadowColor: "red",
@@ -135,12 +157,13 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
 
-    // width: "100%",
+    width: "100%",
   },
   spacer: {
-    paddingTop: "5%",
+    width: "100%",
+    marginTop: "5%",
+    backgroundColor: "red",
   },
 
   leftBack: {
@@ -164,5 +187,12 @@ const styles = StyleSheet.create({
     top: "25%",
     fontWeight: "900",
     marginLeft: "75%",
+  },
+
+  constText: {
+    color: "black",
+  },
+  dynamicText: {
+    color: "white",
   },
 });

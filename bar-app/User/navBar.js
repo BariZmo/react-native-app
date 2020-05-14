@@ -9,8 +9,6 @@ import {
   Image,
 } from "react-native";
 
-import Component from "./components/navBarComponent";
-
 export default function (props) {
   const [userComponenets, setUserComponents] = useState([
     "reservations",

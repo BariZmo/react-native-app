@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from "react-native";
 
-import ReportView from "./ReportView";
+import ReportView from "./components/reportModal";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function (props) {

@@ -12,6 +12,7 @@ import {
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 import MadeMapStyle from "./mapStyle.json";
+import { Permissions, Location } from "expo";
 
 export default function (params) {
   return (
