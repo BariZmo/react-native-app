@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, TextInput, Keyboard } from "react-native";
 
-
 import ReportModal from "./components/reportModal";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 
 export default function (props) {
   const [isChangeMode, setChangeMode] = useState(false);
@@ -61,18 +59,20 @@ export default function (props) {
           {!isChangeMode ? (
             <View style={styles.row}>
               <Text> Id: </Text>
-              <Text> {props.userInfo.id}</Text>
+              <Text style={styles.dynamicText}> {props.userInfo.id}</Text>
             </View>
           ) : null}
           {!isChangeMode ? (
             <View style={styles.row}>
               <Text> Rating: </Text>
-              <Text> {props.userInfo.rating} </Text>
+              <Text style={styles.dynamicText}> {props.userInfo.rating} </Text>
             </View>
           ) : null}
           <View style={styles.row}>
             <Text> Number: </Text>
-            {!isChangeMode ? <Text> {props.userInfo.number} </Text> : null}
+            {!isChangeMode ? (
+              <Text style={styles.dynamicText}> {props.userInfo.number} </Text>
+            ) : null}
             {isChangeMode ? (
               <TextInput
                 keyboardType={"phone-pad"}
@@ -86,7 +86,9 @@ export default function (props) {
 
           <View style={styles.row}>
             <Text> Email: </Text>
-            {!isChangeMode ? <Text> {props.userInfo.email} </Text> : null}
+            {!isChangeMode ? (
+              <Text style={styles.dynamicText}> {props.userInfo.email} </Text>
+            ) : null}
             {isChangeMode ? (
               <TextInput
                 style={styles.input}
@@ -98,14 +100,21 @@ export default function (props) {
           </View>
           <View style={styles.row}>
             <Text> Password: </Text>
-            {!isChangeMode ? <Text> {props.userInfo.password} </Text> : null}
+            {!isChangeMode ? (
+              <Text style={styles.dynamicText}>
+                {" "}
+                {props.userInfo.password}{" "}
+              </Text>
+            ) : null}
             {isChangeMode ? (
-              <TextInput
-                style={styles.input}
-                placeholder={props.userInfo.password}
-                onChangeText={passwordValueHandler}
-                value={passwordValue}
-              />
+              <View inputView={styles.inputView}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={props.userInfo.password}
+                  onChangeText={passwordValueHandler}
+                  value={passwordValue}
+                />
+              </View>
             ) : null}
           </View>
         </View>
@@ -139,7 +148,6 @@ export default function (props) {
           ) : null}
         </View>
       </View>
-
     );
   };
 
@@ -153,7 +161,6 @@ export default function (props) {
           SetVisibility={setReportVisibility}
         />
       )}
-
     </View>
   );
 }
@@ -177,12 +184,13 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    marginVertical: "1%",
+    marginVertical: "0%",
     backgroundColor: "transparent",
     alignItems: "center",
     width: "100%",
     height: "20%",
   },
+
   input: {
     backgroundColor: "#ECA80B",
     borderColor: "black",
@@ -210,8 +218,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     alignItems: "center",
-    color: "black",
+    color: "white",
     top: "15%",
     fontSize: 20,
+  },
+  dynamicText: {
+    color: "white",
   },
 });
