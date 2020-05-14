@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Button,
-  Text,
-  Modal,
-  TextInput,
-  Keyboard,
-} from "react-native";
+import { View, StyleSheet, Text, TextInput, Keyboard } from "react-native";
 
-import ReportView from "./components/reportModal";
+import ReportModal from "./components/reportModal";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function (props) {
@@ -153,7 +145,7 @@ export default function (props) {
       {!reportVisibility ? (
         InfoView(props.SetProfile)
       ) : (
-        <ReportView
+        <ReportModal
           Visibility={reportVisibility}
           SetVisibility={setReportVisibility}
         />

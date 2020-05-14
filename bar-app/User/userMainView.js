@@ -1,17 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  FlatList,
-  TextComponent,
-  Modal,
-  Keyboard,
-} from "react-native";
-
-import { NavigationContainer } from "@react-navigation/native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import Profile from "./components/profile";
 import Map from "../SharedItems/mapsView";
