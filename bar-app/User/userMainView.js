@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  FlatList,
-  TextComponent,
-  Modal,
-} from "react-native";
-
-import { NavigationContainer } from "@react-navigation/native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import Profile from "./components/profile";
 import Map from "../SharedItems/mapsView";
@@ -22,6 +11,7 @@ import HistoryView from "./historyView";
 export default function (props) {
   const [page, setPage] = useState(false);
   const [pageNav, setPageNav] = useState(2);
+  const [profileVisible, setProfileVisible] = useState(true);
 
   const [user, setUser] = useState({
     id: 10,
@@ -29,28 +19,32 @@ export default function (props) {
     email: "mantas@et.lt",
     number: 112,
     rating: 10,
+    password: "Bestukas",
+    ban: 0,
   });
 
   const MainPage = (role) => {
     return (
       <View style={styles.app}>
-        <View style={styles.touch}>
-          <TouchableOpacity onPress={() => setPage(!page)}>
-            <Profile />
-          </TouchableOpacity>
-        </View>
+        {profileVisible ? (
+          <View style={styles.touch}>
+            <TouchableOpacity onPress={() => setPage(!page)}>
+              <Profile
+                profileVisibility={profileVisible}
+                isBlocked={user.ban == 0 ? false : true}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : null}
         <View style={styles.popup}>
           {page ? (
             <ProfileView
               userInfo={user}
               show={false}
               changeUserInfo={setUser}
+              SetProfile={setProfileVisible}
             />
           ) : null}
-        </View>
-
-        <View style={styles.nav}>
-          <NavBar status={true} role={role} />
         </View>
       </View>
     );
@@ -70,14 +64,6 @@ export default function (props) {
             <Map />
           </View>
         ) : null}
-        <View style={styles.nav}>
-          <NavBar
-            status={true}
-            role={"user"}
-            SetStatus={setPageNav}
-            seting={pageNav}
-          />
-        </View>
       </View>
     );
   };
@@ -103,7 +89,7 @@ const styles = StyleSheet.create({
   app: {
     width: "100%",
     height: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#033033",
     alignItems: "center",
   },
 
