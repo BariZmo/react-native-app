@@ -28,27 +28,25 @@ export default function (props) {
   return (
     <View style={styles.container}>
       <View style={styles.background}>
-        <Text style={styles.title}>
-          Įveskite atsiradusios klaidos aprašymą:
-        </Text>
+        <Text style={styles.title}>{props.title}</Text>
         <View>
-          <Text>Klaidos tipas:</Text>
+          <Text>{props.shortQuery}</Text>
           <TextInput
             style={styles.textInput}
-            placeholder={`Pvz. "Neteisingi duomenys sistemoje"`}
+            placeholder={props.shortQueryPlaceholder}
             placeholderTextColor="white"
             onChangeText={bugTypeHandler}
             value={bugType}
           />
         </View>
         <View>
-          <Text>Klaidos apibūdinimas:</Text>
+          <Text>{props.longQuery}</Text>
           <TextInput
             style={styles.textInput}
             numberOfLines={2}
             multiline={true}
             textAlignVertical="top"
-            placeholder={`Pvz. "Pateikiami neteisingi paskyros duomenys"`}
+            placeholder={props.longQueryPlaceholder}
             placeholderTextColor="white"
             onChangeText={descriptionTypeHandler}
             value={bugDesciption}

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, TextInput, Keyboard } from "react-native";
 
+
 import ReportModal from "./components/reportModal";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 
 export default function (props) {
   const [isChangeMode, setChangeMode] = useState(false);
@@ -137,6 +139,7 @@ export default function (props) {
           ) : null}
         </View>
       </View>
+
     );
   };
 
@@ -150,6 +153,7 @@ export default function (props) {
           SetVisibility={setReportVisibility}
         />
       )}
+
     </View>
   );
 }
