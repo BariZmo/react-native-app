@@ -112,4 +112,9 @@ const styles = StyleSheet.create({
     marginLeft: "1%",
     color: "white",
   },
+  buttonBackText: {
+    marginLeft: "40%",
+    fontSize: 20,
+    color: "white",
+  },
 });

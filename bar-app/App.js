@@ -10,6 +10,8 @@ import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
 import ReportView from "./User/ReportView.js";
 
+import test from "./SharedItems/ratingsView";
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -22,7 +24,7 @@ export default function App() {
         <Stack.Screen name="AdminPage" component={AdminUsersView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
-        <Stack.Screen name="test" component={ReportView} />
+        <Stack.Screen name="test" component={test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
