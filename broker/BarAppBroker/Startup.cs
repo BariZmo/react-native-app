@@ -31,7 +31,13 @@ namespace BarAppBroker
                 endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Blank page.");
+                    await context.Response.WriteAsync(
+                        "Baru rezervavimo sistemos serveris.\n" +
+                        "Vilniaus Universitetas. PS3 studentai:\n" +
+                        "Julius Syvis\n" +
+                        "Mantas Radzevicius\n" +
+                        "Saulius Paskevicius\n" +
+                        "Tomas Sirutavicius");
                 });
             });
         }
