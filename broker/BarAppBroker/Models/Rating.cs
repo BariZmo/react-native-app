@@ -2,6 +2,7 @@
 {
     public class Rating
     {
+        public int Id { get; set; }
         public int Score { get; set; }
         public string Comment { get; set; }
         public string RatedEntityRole { get; set; }
@@ -9,7 +10,7 @@
 
         public override string ToString()
         {
-            return $"{RatedEntityId} {RatedEntityRole} {Score} {Comment}";
+            return $"{Id} {RatedEntityId} {RatedEntityRole} {Score} {Comment}";
         }
     }
 }

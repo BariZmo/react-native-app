@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace BarAppBroker
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         const string fileName = "users.json";
         readonly object _lockObj = new object();
 
-        // GET: api/User
+        // GET: User
         [HttpGet]
         public IEnumerable<User> Get()
         {
@@ -30,8 +30,8 @@ namespace BarAppBroker
             }
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: User/5
+        [HttpGet("{id}")]
         public User Get(int id)
         {
             lock (_lockObj)
@@ -54,7 +54,7 @@ namespace BarAppBroker
             }
         }
 
-        // POST: api/User
+        // POST: User
         [HttpPost]
         public void Post([FromBody] User value)
         {
@@ -79,7 +79,7 @@ namespace BarAppBroker
             }
         }
 
-        // PUT: api/User/5
+        // PUT: User/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] User value)
         {
@@ -97,7 +97,7 @@ namespace BarAppBroker
             }
         }
 
-        // DELETE: api/User/5
+        // DELETE: User/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
