@@ -12,7 +12,7 @@
 
         public override string ToString()
         {
-            return $"{Id} {Name} {Surname} {Email} {Password}";
+            return $"{Id} {Name} {Surname} {Email} {Number} {Password} {Blocked}";
         }
     }
 }
