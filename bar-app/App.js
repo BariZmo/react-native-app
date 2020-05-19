@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import UserMainView from "./User/userMainView";
-import AdminUsersView from "./Admin/adminUsersView";
+import AdminMainView from "./Admin/adminMainView";
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
 import ReportView from "./User/ReportView.js";
@@ -21,7 +21,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
         <Stack.Screen name="LoginScreen" component={LoginPage} />
-        <Stack.Screen name="AdminPage" component={AdminUsersView} />
+        <Stack.Screen name="AdminPage" component={AdminMainView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
         <Stack.Screen name="test" component={test} />

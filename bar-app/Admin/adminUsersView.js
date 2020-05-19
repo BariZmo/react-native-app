@@ -66,24 +66,55 @@ export default function (props) {
 
   function UserInfo({ infoElement }) {
     console.log(infoElement);
+    if(infoElement.blocked){
     return (
       <View style={styles.user}>
-        <View style={styles.firstLine}>
-          <Text>ID: {infoElement.id}</Text>
-          <Text>name: {infoElement.name}</Text>
-          <Text>rating: {infoElement.rating}</Text>
-          <Button title="Blokuoti" />
-        </View>
-        <View style={styles.secondLine}>
-          <Text>blocked: {String(infoElement.blocked)}</Text>
-          <Text>blockTime: {infoElement.blockTime}</Text>
-          <Button title="Panaikinti" />
-        </View>
-        <Text>lastLogin: {infoElement.lastLogin}</Text>
-        <Button title="Pranesimas" />
+      <View style={styles.titleLine}>
+        <Text>Naudotojas: {infoElement.name}</Text>
       </View>
+      <View style={styles.firstLine}>
+      <Button color="#ff5c5c" title="Panaikinti"/>
+      <Button color="#ff5c5c" title="Blokuoti"/>
+      <Button color="#158a51" title="Siųsti pranesimą" />
+      </View>
+      <View style={styles.secondLine}>
+        <Text>Statusas: Blokuotas</Text>
+        <Text>ID: {infoElement.id}</Text>
+        <Text>Reitingas: {infoElement.rating}</Text>
+      </View>
+      <View style={styles.thirdLine}>
+        <Text>Blokuotas kartų: {infoElement.blockTime}</Text>
+      </View>
+      <View style={styles.fourthLine}>
+        <Text>Paskutinį kartą prisijungė: {infoElement.lastLogin}</Text>
+      </View>
+    </View>
     );
   }
+  return (
+    <View style={styles.user}>
+    <View style={styles.titleLine}>
+      <Text>Naudotojas: {infoElement.name}</Text>
+    </View>
+    <View style={styles.firstLine}>
+      <Button color="#ff5c5c" title="Panaikinti"/>
+      <Button color="#ff5c5c" title="Blokuoti"/>
+      <Button color="#158a51" title="Siųsti pranesimą" />
+      </View>
+      <View style={styles.secondLine}>
+        <Text>Statusas: Aktyvus</Text>
+        <Text>ID: {infoElement.id}</Text>
+        <Text>Reitingas: {infoElement.rating}</Text>
+      </View>
+      <View style={styles.thirdLine}>
+        <Text>Blokuotas kartų: {infoElement.blockTime}</Text>
+      </View>
+      <View style={styles.fourthLine}>
+        <Text>Paskutinį kartą prisijungė: {infoElement.lastLogin}</Text>
+      </View>
+    </View>
+  );
+}
 
   return (
     <View>
@@ -100,17 +131,46 @@ const styles = StyleSheet.create({
   user: {
     width: "100%",
     paddingVertical: "5%",
+    backgroundColor: "#53914d",
+    marginBottom: 60,
+  },
+  titleLine: {
+    justifyContent: "right",
+    width: "100%",
+    paddingHorizontal: "5%",
+    paddingVertical: "2%",
+    backgroundColor: "#acdba7",
+    justifyContent: "space-between",
+
   },
   firstLine: {
     width: "100%",
     flexDirection: "row",
     paddingHorizontal: "5%",
+    backgroundColor: "#96d690",
     justifyContent: "space-between",
   },
   secondLine: {
     width: "100%",
     flexDirection: "row",
     paddingHorizontal: "5%",
+    paddingVertical: "2%",
+    backgroundColor: "#96d690",
+    justifyContent: "space-between",
+  },
+  thirdLine: {
+    width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: "5%",
+    backgroundColor: "#96d690",
+    justifyContent: "space-between",
+  },
+  fourthLine: {
+    width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: "5%",
+    paddingVertical: "2%",
+    backgroundColor: "#96d690",
     justifyContent: "space-between",
   },
 });
