@@ -21,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        <Stack.Screen name="LoginScreen" component={UserMainView} />
+        <Stack.Screen name="LoginScreen" component={LoginPage} />
         <Stack.Screen name="AdminPage" component={AdminMainView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
