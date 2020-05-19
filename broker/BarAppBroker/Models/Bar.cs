@@ -3,7 +3,7 @@
     public class Bar
     {
         public int Id { get; set; }
-        public int TradeName { get; set; }
+        public string TradeName { get; set; }
         public string Number { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
