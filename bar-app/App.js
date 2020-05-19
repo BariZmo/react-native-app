@@ -12,6 +12,7 @@ import ReportView from "./User/ReportView.js";
 
 import test from "./SharedItems/ratingsView";
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
