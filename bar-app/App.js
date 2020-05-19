@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import UserMainView from "./User/userMainView";
 import AdminUsersView from "./Admin/adminUsersView";
+import BarsView from "./Admin/BarsView";
+import messageView from "./Admin/messageView";
 
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";

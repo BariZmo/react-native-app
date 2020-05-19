@@ -23,7 +23,7 @@ export default function () {
 
   const removeHandler = (id) => {
     setReservations((prevReservations) => {
-      return prevReservations.filter((reservation) => reservation.id != id);
+      return prevReservations.filter((reservations) => reservations.id != id);
     });
   };
 
@@ -105,7 +105,7 @@ export default function () {
 }
 
 function getReservation(reservations, id) {
-  reservation = reservations.find((res) => {
+  const reservation = reservations.find((res) => {
     return res.id == id;
   });
   if (reservation != undefined) return reservation;
