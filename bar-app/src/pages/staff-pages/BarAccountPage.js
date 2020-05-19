@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, BackHandler, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  BackHandler,
+  Image,
+  Alert,
+} from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { SampleBars } from "./SampleBars";
+import ReportView from "./../../../User/ReportView";
 
 export default function () {
   BackHandler.addEventListener("hardwareBackPress", () => true);
@@ -9,32 +17,82 @@ export default function () {
   const [bars, setBars] = useState(SampleBars);
   let myBar = bars[0];
 
+  const [errorPageOpen, setErrorPageOpen] = useState(false);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{`Baro "${myBar.tradeName}" paskyra:`}</Text>
-      <View style={styles.imagePortrait}>
-        <View style={styles.imageBackground}></View>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require("../../../assets/sampleBar.jpg")}
-          ></Image>
+    <View>
+      {errorPageOpen == true ? (
+        <ReportView
+          title={"Įveskite atsiradusios klaidos aprašymą:"}
+          shortQuery={"Klaidos tipas:"}
+          shortQueryPlaceholder={`Pvz. "Neteisingi duomenys sistemoje"`}
+          longQuery={"Klaidos apibūdinimas:"}
+          longQueryPlaceholder={`Pvz. "Pateikiami neteisingi paskyros duomenys"`}
+          sendHandler={(type, description) => {
+            // TODO:
+            // a) send a message to admin
+            // b) get success value
+            setErrorPageOpen(false);
+            let success = true;
+            if (success) {
+              Alert.alert(
+                "Pranešimas:",
+                "Klaidos pranešimas sėkmingai išsiųstas.",
+                [
+                  {
+                    text: "Tęsti",
+                    onPress: () => {},
+                  },
+                ]
+              );
+            } else {
+              Alert.alert(
+                "Pranešimas:",
+                "Klaidos pranešimo išsiųsti nepavyko.",
+                [
+                  {
+                    text: "Tęsti",
+                    onPress: () => {},
+                  },
+                ]
+              );
+            }
+          }}
+          cancelHandler={() => {
+            setErrorPageOpen(false);
+          }}
+        ></ReportView>
+      ) : (
+        <View style={styles.container}>
+          <Text
+            style={styles.title}
+          >{`Baro "${myBar.tradeName}" paskyra:`}</Text>
+          <View style={styles.imagePortrait}>
+            <View style={styles.imageBackground}></View>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                source={require("../../../assets/sampleBar.jpg")}
+              ></Image>
+            </View>
+          </View>
+          <Text style={styles.info}>{`Tel. nr.: ${myBar.number}`}</Text>
+          <Text style={styles.info}>{`El. paštas: ${myBar.email}`}</Text>
+          <Text style={styles.info}>{`Adresas: ${myBar.address}`}</Text>
+          <View style={{ flex: 1, alignItems: "flex-end" }}>
+            <TouchableHighlight
+              underlayColor={"red"}
+              activeOpacity={0.8}
+              style={styles.errorButton}
+              onPress={() => {
+                setErrorPageOpen(true);
+              }}
+            >
+              <Text style={{ color: "black" }}>Pranešti apie klaidą</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-      </View>
-      <Text style={styles.info}>{`Tel. nr.: ${myBar.number}`}</Text>
-      <Text style={styles.info}>{`El. paštas: ${myBar.email}`}</Text>
-      <Text style={styles.info}>{`Adresas: ${myBar.address}`}</Text>
-      <View style={{ flex: 1, alignItems: "flex-end" }}>
-        <TouchableHighlight
-          underlayColor={"red"}
-          activeOpacity={0.8}
-          style={styles.errorButton}
-          // TODO: add error input
-          onPress={() => {}}
-        >
-          <Text style={{ color: "black" }}>Pranešti apie klaidą</Text>
-        </TouchableHighlight>
-      </View>
+      )}
     </View>
   );
 }

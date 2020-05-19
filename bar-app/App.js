@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-
-import UserMainView from "./User/userMainView";
-import AdminUsersView from "./Admin/adminUsersView";
-import BarsView from "./Admin/BarsView";
-import messageView from "./Admin/messageView";
+import React from "react";
 
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import UserMainView from "./User/userMainView";
+import AdminUsersView from "./Admin/adminUsersView";
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
+import ReportView from "./User/ReportView.js";
+
+import test from "./SharedItems/ratingsView";
 
 
 const Stack = createStackNavigator();
@@ -25,6 +25,7 @@ export default function App() {
         <Stack.Screen name="AdminPage" component={AdminUsersView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
+        <Stack.Screen name="test" component={test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
