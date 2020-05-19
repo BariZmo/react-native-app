@@ -102,15 +102,14 @@ const styles = StyleSheet.create({
   },
 
   popup: {
-    height: "25%",
+    height: "30%",
     width: "100%",
-    top: "55%",
+    top: "50%",
 
     position: "absolute",
   },
   touch: {
     position: "absolute",
-    top: "10%",
     paddingVertical: "10%",
     alignItems: "center",
     justifyContent: "center",

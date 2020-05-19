@@ -65,9 +65,9 @@ export default function (props) {
           style={styles.touchable}
           onPress={() => showDetails(infoElement.id)}
         >
-          <Text>Bar: {infoElement.bar}</Text>
-          <Text>DATE: {infoElement.date}</Text>
-          <Text>Money spent: {infoElement.money}</Text>
+          <Text>Bar: {infoElement.bar}{"\n"}
+                DATE: {infoElement.date}{"\n"}
+                Money spent: {infoElement.money}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   touchable: {
     width: "100%",
     flexDirection: "row",
-    paddingVertical: "5%",
+    paddingVertical: "2%",
     backgroundColor: "#ECA80B",
     textDecorationColor: "black",
     textShadowColor: "white",
