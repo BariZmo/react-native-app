@@ -136,7 +136,6 @@ export default function (props) {
 
 function getBar(bars, latitude, longitude) {
   var bar = bars.find((b) => {
-    // code below doesn't work 
     return b.longitude == longitude && b.latitude == latitude;
   });
   if (bar != undefined) return bar;

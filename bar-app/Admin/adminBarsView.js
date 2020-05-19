@@ -4,15 +4,17 @@ import {
   Text,
   View,
   Button,
-  TouchableOpacity,
   FlatList,
   TextComponent,
   Modal,
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { NavigationContainer, useLinkProps } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 // *sort by date
 
-export default function (props) {
+export default function ({ navigation }) {
   const [users, setUsers] = useState([
     {
       id: 1, name: "Stikliai", adress: "Stiklių g. 12", phone: "8611111111", email: "stikliai@mail.com",
@@ -72,11 +74,18 @@ export default function (props) {
       </View>
     </View>
     );
-}
+  }
 
   return (
-    <View style={styles.barButton}>
-      <View><Button color="#158a51" title="Pridėti barą" /></View>
+    <View style={ styles.barButton }>
+        <Button 
+          color="#158a51" 
+          title="Pridėti barą" 
+          onPress={() => {
+            enter(navigation);
+            //navigation.navigate("MapPage");
+          }}
+          />
       <FlatList
         data={users}
         renderItem={({ item }) => <UserInfo infoElement={item} />}
@@ -84,6 +93,10 @@ export default function (props) {
       />
     </View>
   );
+}
+
+function enter(navigation) {
+  navigation.navigate("MapPage");
 }
 
 const styles = StyleSheet.create({
