@@ -42,23 +42,47 @@ export default function ({ navigation }) {
 }
 
 function submit(email, password, navigation) {
-  // TODO: add email/psw saving and checking
-  if (email == "admin@admin.com" && password == "admin") {
-    navigation.navigate("AdminPage");
-  } else if (email == "staff@staff.com" && password == "staff") {
-    navigation.navigate("StaffPage");
-  } else if (email == "user@user.com" && password == "user") {
-    navigation.navigate("UserPage");
-  } else if (email == "" && password == "") {
-    navigation.navigate("test");
-  } else {
-    Alert.alert("Klaida:", "Duomenys neteisingi", [
-      {
-        text: "Tęsti",
-        onPress: () => {},
-      },
-    ]);
-  }
+  if (email == "" && password == "") navigation.navigate("test");
+
+  fetch("https://barappbroker20200515061143.azurewebsites.net/user")
+    .then((response) => response.json())
+    .then((users) => {
+      let viableUsers = users.find(
+        (e) => e.email == email && e.password == password
+      );
+      if (viableUsers != undefined) navigation.navigate("UserPage");
+      else {
+        fetch("https://barappbroker20200515061143.azurewebsites.net/bar")
+          .then((response) => response.json())
+          .then((users) => {
+            let viableBars = users.find(
+              (e) => e.email == email && e.password == password
+            );
+            if (viableBars != undefined) navigation.navigate("StaffPage");
+            else {
+              fetch(
+                "https://barappbroker20200515061143.azurewebsites.net/admin"
+              )
+                .then((response) => response.json())
+                .then((users) => {
+                  let viableAdmins = users.find(
+                    (e) => e.email == email && e.password == password
+                  );
+                  if (viableAdmins != undefined)
+                    navigation.navigate("AdminPage");
+                  else {
+                    Alert.alert("Klaida:", "Duomenys neteisingi", [
+                      {
+                        text: "Tęsti",
+                        onPress: () => {},
+                      },
+                    ]);
+                  }
+                });
+            }
+          });
+      }
+    });
 }
 
 const styles = StyleSheet.create({

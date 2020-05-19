@@ -12,12 +12,9 @@ import ReportView from "./User/ReportView.js";
 
 import test from "./SharedItems/ratingsView";
 
-
 const Stack = createStackNavigator();
 
 export default function App() {
-  // NavBar status -> shows state if user in main view (true) or elsewhere (false)
-  // NavBar role -> shows what kind of role user has G1={} G2={} G3={} GMap={}
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
