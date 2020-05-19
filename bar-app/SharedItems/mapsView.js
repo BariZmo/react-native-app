@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList,
   Button,
   TextInput,
   Modal,
@@ -12,6 +13,7 @@ import {
 
 import MapView, { PROVIDER_GOOGLE, Circle } from "react-native-maps";
 import { Marker } from "react-native-maps";
+import SampleBars from "C:/Users/Saulius/Documents/GitHub/react-native-app/bar-app/Admin/SampleBars.js";
 import MadeMapStyle from "./mapStyle.json";
 import Constants from "expo-constants";
 
@@ -22,6 +24,8 @@ export default function (props) {
     longitude: 25.279652,
     error: "",
   });
+  const [bars, setBars] = useState(SampleBars);
+  const [modalVisibility, setModalVisibility] = useState(false);
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -60,6 +64,23 @@ export default function (props) {
     }
   };
 
+  const ShowBarDescription = (longitude, latitude) => {
+    return (
+      <View style={styles.main}>
+      <Modal visible={modalVisibility} animationType="fade" transparent={true}>
+        <View style={styles.modalBackground}>
+          <View style={styles.modal}>
+            <FlatList>
+              <Text>fghfgh</Text>
+            </FlatList>
+            <Button title="go back" onPress={() => setModalVisibility(false)} />
+          </View>
+        </View>
+      </Modal>
+    </View>
+    );
+  };
+
   if (!permission) {
     requestCameraPermission();
   }
@@ -88,10 +109,17 @@ export default function (props) {
         />
         <Marker
           coordinate={{ latitude: 54.687255, longitude: 25.214918 }}
-          description="xdwde"
+          onPress={() => {
+            ShowBarDescription(54.687255, 25.214918);
+            setModalVisibility(true);
+          }}
         ></Marker>
         <Marker
           coordinate={{ latitude: 54.680635, longitude: 25.286344 }}
+          onPress={() => {
+            ShowBarDescription(54.680635, 25.286344);
+            setModalVisibility(true);
+          }}
         ></Marker>
       </MapView>
     </View>
@@ -110,5 +138,74 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+  },
+  modal: {
+    width: "80%",
+    height: "80%",
+    backgroundColor: "#ECA80B",
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 4,
+    alignItems: "center",
+    justifyContent: "space-between",
+    left: "10%",
+    top: "5%",
+  },
+  modalBackground: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(52, 52, 52, 0.6)",
+  },
+  touchable: {
+    width: "100%",
+    flexDirection: "row",
+    paddingVertical: "2%",
+    backgroundColor: "#ECA80B",
+    textDecorationColor: "black",
+    textShadowColor: "white",
+    textShadowRadius: 10,
+    borderColor: "black",
+    borderRadius: 10,
+    borderStyle: "solid",
+    borderWidth: 2,
+  },
+  list: {
+    width: "90%",
+    height: "80%",
+    top: "2%",
+  },
+  clearButton: {
+    borderRadius: 10,
+    backgroundColor: "#ECA80B",
+    height: "10%",
+    width: "80%",
+    top: "5%",
+    alignItems: "center",
+    borderColor: "black",
+    borderWidth: 2,
+  },
+  clearText: {
+    fontSize: 20,
+    top: "25%",
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+
+    // width: "100%",
+  },
+  spacer: {
+    paddingTop: "5%",
+  },
+
+  elementID: {
+    width: "250",
+  },
+  elementDate: {
+    width: "250",
+  },
+  elementBar: {
+    width: "250",
+    paddingHorizontal: 50,
   },
 });

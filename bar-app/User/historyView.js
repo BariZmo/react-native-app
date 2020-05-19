@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
   list: {
     width: "90%",
     height: "80%",
-
     top: "2%",
   },
   clearButton: {
