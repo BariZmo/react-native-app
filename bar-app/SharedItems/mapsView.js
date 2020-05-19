@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
+  List,
   Button,
   TextInput,
   Modal,
@@ -16,6 +16,7 @@ import { Marker } from "react-native-maps";
 import { SampleBars } from "./../Admin/SampleBars";
 import MadeMapStyle from "./mapStyle.json";
 import Constants from "expo-constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function (props) {
   const [permission, setPremission] = useState(false);
@@ -75,15 +76,18 @@ export default function (props) {
       <Modal visible={modalVisibility} animationType="fade" transparent={true}>
         <View style={styles.modalBackground}>
           <View style={styles.modal}>
-              <Text style={styles.modalText}>{ getBar(bars, selectedLat, selectedLong).tradeName }</Text>
-              <Image
-                style={styles.imagePortrait}
-                source={{ uri: "https://cdn.foodhospitality.in/wp-content/uploads/2020/05/18182620/Vikram-Achanta_Co-founder-of-30BestBarsIndia.jpg"}}
-              />
-              <Text style={styles.modalText}>number: { getBar(bars, selectedLat, selectedLong).number }</Text>
-              <Text style={styles.modalText}>email: { getBar(bars, selectedLat, selectedLong).email }</Text>
-              <Text style={styles.modalText}>address: { getBar(bars, selectedLat, selectedLong).address }</Text>
-            <Button title="go back" onPress={() => setModalVisibility(false)} />
+            <Text style={styles.modalText}>{ getBar(bars, selectedLat, selectedLong).tradeName }</Text>
+            <Image
+              style={styles.imagePortrait}
+              source={{ uri: "https://cdn.foodhospitality.in/wp-content/uploads/2020/05/18182620/Vikram-Achanta_Co-founder-of-30BestBarsIndia.jpg"}}
+            />
+            <Text style={styles.modalText}>number: { getBar(bars, selectedLat, selectedLong).number }</Text>
+            <Text style={styles.modalText}>email: { getBar(bars, selectedLat, selectedLong).email }</Text>
+            <Text style={styles.modalText}>address: { getBar(bars, selectedLat, selectedLong).address }</Text>
+            <View style={ styles.container }>
+              <Button style={ styles.button } title="Grįžti" onPress={() => setModalVisibility(false)} />
+              <Button style={ styles.button } title="Rezervuoti" />
+            </View>
           </View>
         </View>
       </Modal>
@@ -188,5 +192,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 10,
     marginBottom: 10,
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    backgroundColor: 'green',
+    width: '30%',
   }
 });
