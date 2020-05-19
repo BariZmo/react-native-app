@@ -15,7 +15,7 @@ namespace BarAppBroker
     public class VisitController : ControllerBase
     {
         const string fileName = "visits.json";
-        readonly object _lockObj = new object();
+        readonly static object _lockObj = new object();
 
         // GET: Visit
         [HttpGet]

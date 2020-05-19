@@ -15,7 +15,7 @@ namespace BarAppBroker
     public class UserController : ControllerBase
     {
         const string fileName = "users.json";
-        readonly object _lockObj = new object();
+        readonly static object _lockObj = new object();
 
         // GET: User
         [HttpGet]

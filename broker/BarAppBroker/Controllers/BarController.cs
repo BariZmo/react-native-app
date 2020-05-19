@@ -15,7 +15,7 @@ namespace BarAppBroker
     public class BarController : ControllerBase
     {
         const string fileName = "bars.json";
-        readonly object _lockObj = new object();
+        readonly static object _lockObj = new object();
 
         // GET: Bar
         [HttpGet()]

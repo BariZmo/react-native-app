@@ -15,7 +15,7 @@ namespace BarAppBroker
     public class RatingController : ControllerBase
     {
         const string fileName = "ratings.json";
-        readonly object _lockObj = new object();
+        readonly static object _lockObj = new object();
 
         // GET: Rating
         [HttpGet]

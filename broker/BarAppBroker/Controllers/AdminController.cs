@@ -15,7 +15,7 @@ namespace AdminAppBroker
     public class AdminController : ControllerBase
     {
         const string fileName = "admins.json";
-        readonly object _lockObj = new object();
+        readonly static object _lockObj = new object();
 
         // GET: Admin
         [HttpGet()]
