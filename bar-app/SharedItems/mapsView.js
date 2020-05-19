@@ -64,35 +64,28 @@ export default function (props) {
     }
   };
 
-  const ShowBarDescription = (longitude, latitude) => {
-    return (
-      <View style={styles.main}>
-      <Modal visible={modalVisibility} animationType="fade" transparent={true}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modal}>
-            <FlatList>
-              <Text>fghfgh</Text>
-            </FlatList>
-            <Button title="go back" onPress={() => setModalVisibility(false)} />
-          </View>
-        </View>
-      </Modal>
-    </View>
-    );
-  };
-
   if (!permission) {
     requestCameraPermission();
   }
 
   return (
     <View style={styles.main}>
+      <Modal visible={modalVisibility} animationType="fade" transparent={true}>
+        <View style={styles.modalBackground}>
+          <View style={styles.modal}>
+            <FlatList>
+              
+            </FlatList>
+            <Button title="go back" onPress={() => setModalVisibility(false)} />
+          </View>
+        </View>
+      </Modal>
       <MapView
         style={styles.map}
         customMapStyle={MadeMapStyle}
         provider={PROVIDER_GOOGLE}
         onPress={() => getLocation()}
-        region={{
+        initialRegion={{
           latitude: 54.687157,
           longitude: 25.279652,
           latitudeDelta: 0.5,
@@ -109,18 +102,14 @@ export default function (props) {
         />
         <Marker
           coordinate={{ latitude: 54.687255, longitude: 25.214918 }}
-          onPress={() => {
-            ShowBarDescription(54.687255, 25.214918);
-            setModalVisibility(true);
-          }}
-        ></Marker>
+          onPress={() => { setModalVisibility(true); }}
+        >
+        </Marker>
         <Marker
           coordinate={{ latitude: 54.680635, longitude: 25.286344 }}
-          onPress={() => {
-            ShowBarDescription(54.680635, 25.286344);
-            setModalVisibility(true);
-          }}
-        ></Marker>
+          onPress={() => { setModalVisibility(true);} }
+        >
+        </Marker>
       </MapView>
     </View>
   );
@@ -191,13 +180,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-
     // width: "100%",
   },
   spacer: {
     paddingTop: "5%",
   },
-
   elementID: {
     width: "250",
   },
