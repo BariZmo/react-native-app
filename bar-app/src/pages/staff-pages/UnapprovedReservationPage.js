@@ -25,11 +25,25 @@ export default function () {
         return response.json();
       })
       .then((responseJson) => {
-        setReservations(
-          responseJson.filter(
-            (reservation) => reservation.barId == global.loginId
-          )
-        );
+        fetch("https://barappbroker20200515061143.azurewebsites.net/user")
+          .then((response) => response.json())
+          .then((userJson) => {
+            responseJson.forEach((reserv) => {
+              let user = userJson.find((u) => u.id == reserv.userId);
+              reserv.name = user.name;
+              reserv.surname = user.surname;
+              reserv.email = user.email;
+              reserv.number = user.number;
+            });
+
+            setReservations(
+              responseJson.filter(
+                (reservation) =>
+                  reservation.barId == global.loginId &&
+                  reservation.accepted == false
+              )
+            );
+          });
       });
   };
   if (needToLoad) fetchData();
