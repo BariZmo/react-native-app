@@ -114,36 +114,12 @@ export default class AdminMap extends Component {
               <Image
                 style={styles.marker}
                 source={{ uri: "https://toppng.com/uploads/preview/map-point-google-map-marker-gif-11562858751s4qufnxuml.png"}}
-                
+
               />
               <Text style={styles.text}>{marker.cost}</Text>
             </Marker>
           )
         })}
-          <Circle
-            center={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            }}
-            radius={1000}
-            fillColor={"rgba(255, 52, 52, 0.2)"}
-          />
-          <Marker
-            coordinate={{ latitude: 54.687255, longitude: 25.214918 }}
-            onPress={() => {
-              setSelectedCoordinate(54.687255, 25.214918);
-              setModalVisibility(true); 
-            }}
-          >
-          </Marker>
-          <Marker
-            coordinate={{ latitude: 54.680635, longitude: 25.286344 }}
-            onPress={() => { 
-              setSelectedCoordinate(54.680635, 25.286344);
-              setModalVisibility(true);
-            }}
-          >
-          </Marker>
         </MapView>
     </View>
     );
