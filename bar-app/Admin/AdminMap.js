@@ -69,7 +69,7 @@ export default class AdminMap extends Component {
         ...this.state.markers,
         {
           coordinate: e.nativeEvent.coordinate,
-          cost: `$${getRandomInt(50, 300)}`
+          cost: `${e.nativeEvent.coordinate.latitude}`
         }
       ]
     })
@@ -111,6 +111,11 @@ export default class AdminMap extends Component {
         {this.state.markers.map((marker) => {
           return (
             <Marker {...marker} >
+              <Image
+                style={styles.marker}
+                source={{ uri: "https://toppng.com/uploads/preview/map-point-google-map-marker-gif-11562858751s4qufnxuml.png"}}
+                
+              />
               <Text style={styles.text}>{marker.cost}</Text>
             </Marker>
           )
@@ -205,6 +210,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   marker: {
+    backgroundColor: "transparent",
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#550bbc",
     padding: 5,
     borderRadius: 5,

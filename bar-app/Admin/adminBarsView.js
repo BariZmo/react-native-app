@@ -96,7 +96,7 @@ function GoToButton() {
   return (
     <Button
       title="Pridėti barą"
-      onPress={() => navigation.navigate("AdminMapsPage")}
+      onPress={() => navigation.navigate("AddBarPage")}
     />
   );
 }

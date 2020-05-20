@@ -14,6 +14,7 @@ import adminBarsView from "./Admin/adminBarsView";
 
 import test from "./SharedItems/ratingsView";
 import maptest from "./Admin/AdminMap";
+import addBarPage from "./Admin/addBarPage";
 
 
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ export default function App() {
         <Stack.Screen name="UserPage" component={UserMainView} />
         <Stack.Screen name="test" component={AdminMainView} />
         <Stack.Screen name="AdminBarsPage" component={adminBarsView} />
+        <Stack.Screen name="AddBarPage" component={addBarPage} />
         <Stack.Screen name="AdminMapsPage" component={maptest} />
       </Stack.Navigator>
     </NavigationContainer>
