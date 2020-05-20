@@ -1,9 +1,32 @@
 import React, { Component } from "react";
-import { View, StyleSheet, BackHandler, Dimensions } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import StaffNavigationBar from "./StaffNavigationBar";
 import UnapprovedReservationPage from "./UnapprovedReservationPage";
 import ReservationPage from "./ReservationPage";
 import BarAccountPage from "./BarAccountPage";
+
+const BackAlert = () =>
+  new Promise((resolve) => {
+    Alert.alert(
+      "Pranešimas:",
+      "Ar tikrai norite atsijungti?",
+      [
+        {
+          text: "Taip",
+          onPress: () => {
+            resolve("Yes");
+          },
+        },
+        {
+          text: "Ne",
+          onPress: () => {
+            resolve("No");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  });
 
 export default class StaffPage extends Component {
   constructor(props) {
@@ -16,8 +39,6 @@ export default class StaffPage extends Component {
   }
 
   render() {
-    BackHandler.addEventListener("hardwareBackPress", () => true);
-
     return (
       <View style={styles.container}>
         <View style={styles.flexContainer}>

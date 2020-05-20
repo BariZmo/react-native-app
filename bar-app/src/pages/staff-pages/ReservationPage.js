@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  BackHandler,
   FlatList,
   Modal,
   TouchableOpacity,
@@ -15,8 +14,6 @@ import { styles, itemStyles, modalStyles } from "./ReservationListStyles";
 import ReportView from "../../../User/ReportView";
 
 export default function () {
-  BackHandler.addEventListener("hardwareBackPress", () => true);
-
   const [reservations, setReservations] = useState(SampleAcceptedReservations);
   // selectedItem is identified by id
   const [selectedItem, setSelectedItem] = useState(-1);

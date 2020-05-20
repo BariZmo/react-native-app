@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, BackHandler, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 export default class StaffNavigationBar extends Component {
@@ -8,8 +8,6 @@ export default class StaffNavigationBar extends Component {
   }
 
   render() {
-    BackHandler.addEventListener("hardwareBackPress", () => true);
-
     return (
       <View style={styles.navigationBar}>
         <TouchableHighlight

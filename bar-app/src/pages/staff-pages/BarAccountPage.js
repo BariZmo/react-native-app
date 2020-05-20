@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  BackHandler,
-  Image,
-  Alert,
-} from "react-native";
+import { Text, View, StyleSheet, Image, Alert } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { SampleBars } from "./SampleBars";
 import ReportView from "./../../../User/ReportView";
 
 export default function () {
-  BackHandler.addEventListener("hardwareBackPress", () => true);
-
   const [bars, setBars] = useState(SampleBars);
   let myBar = bars[0];
 
