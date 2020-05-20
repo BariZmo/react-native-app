@@ -5,29 +5,6 @@ import UnapprovedReservationPage from "./UnapprovedReservationPage";
 import ReservationPage from "./ReservationPage";
 import BarAccountPage from "./BarAccountPage";
 
-const BackAlert = () =>
-  new Promise((resolve) => {
-    Alert.alert(
-      "Pranešimas:",
-      "Ar tikrai norite atsijungti?",
-      [
-        {
-          text: "Taip",
-          onPress: () => {
-            resolve("Yes");
-          },
-        },
-        {
-          text: "Ne",
-          onPress: () => {
-            resolve("No");
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  });
-
 export default class StaffPage extends Component {
   constructor(props) {
     super(props);
