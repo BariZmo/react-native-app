@@ -9,10 +9,11 @@ import AdminMainView from "./Admin/adminMainView";
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
 import ReportView from "./User/ReportView.js";
-import AdminMapPage from "./Admin/adminMapsView.js";
+import AdminMapsPage from "./Admin/adminMapsView.js";
 import adminBarsView from "./Admin/adminBarsView";
 
 import test from "./SharedItems/ratingsView";
+import maptest from "./Admin/AdminMap";
 
 
 const Stack = createStackNavigator();
@@ -29,7 +30,7 @@ export default function App() {
         <Stack.Screen name="UserPage" component={UserMainView} />
         <Stack.Screen name="test" component={AdminMainView} />
         <Stack.Screen name="AdminBarsPage" component={adminBarsView} />
-        <Stack.Screen name="AdminMapPage" component={AdminMapPage} />
+        <Stack.Screen name="AdminMapsPage" component={maptest} />
       </Stack.Navigator>
     </NavigationContainer>
   );

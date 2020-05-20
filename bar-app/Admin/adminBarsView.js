@@ -79,11 +79,8 @@ export default function (props, { navigation }) {
   return (
     <View style={ styles.barButton }>
         <GoToButton 
-          color="#158a51" 
-          title="Pridėti barą" 
-          //onPress={() => {
-          //  navigation.navigate("MapPage");
-          //}}
+          color="#158a51"
+          title="Pridėti barą"
           />
       <FlatList
         data={users}
@@ -99,7 +96,7 @@ function GoToButton() {
   return (
     <Button
       title="Pridėti barą"
-      onPress={() => navigation.navigate("AdminMapPage")}
+      onPress={() => navigation.navigate("AdminMapsPage")}
     />
   );
 }

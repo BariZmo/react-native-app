@@ -19,9 +19,10 @@ import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { NavigationContainer, useLinkProps } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { render } from "react-dom";
 
 export default function (props) {
-  const [permission, setPremission] = useState(false);
+  const [permission, setPermission] = useState(false);
   const [location, setLocation] = useState({
     latitude: 54.687157,
     longitude: 25.279652,
@@ -29,8 +30,10 @@ export default function (props) {
   });
   const [bars, setBars] = useState(SampleBars);
   const [modalVisibility, setModalVisibility] = useState(false);
-  const [selectedLat, setSelectedLat] = useState(-1);
-  const [selectedLong, setSelectedLong] = useState(-1);
+  const [selectedCoordinate, setSelectedCoordinate] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -43,7 +46,7 @@ export default function (props) {
     });
     console.log(location);
   };
-
+  
   const requestCameraPermission = () => {
     try {
       const granted = PermissionsAndroid.request(
@@ -62,7 +65,7 @@ export default function (props) {
         console.log("Maps permission denied");
       }
 
-      setPremission(true);
+      setPermission(true);
       getLocation();
     } catch (err) {
       console.warn(err);
@@ -73,19 +76,31 @@ export default function (props) {
     requestCameraPermission();
   }
 
+  const placeMarker = (selectedCoordinate) => {
+      <Marker
+        coordinate={{
+          latitude: selectedCoordinate.latitude,
+          longitude: selectedCoordinate.longitude,
+        }}>
+          <View>
+            <Text>asdasf</Text>
+          </View>
+      </Marker>
+  }
+
   return (
     <View style={styles.main}>
       <Modal visible={modalVisibility} animationType="fade" transparent={true}>
         <View style={styles.modalBackground}>
           <View style={styles.modal}>
-            <Text style={styles.modalText}>{ getBar(bars, selectedLat, selectedLong).tradeName }</Text>
+            <Text style={styles.modalText}>{ getBar(bars, selectedCoordinate).tradeName }</Text>
             <Image
               style={styles.imagePortrait}
               source={{ uri: "https://cdn.foodhospitality.in/wp-content/uploads/2020/05/18182620/Vikram-Achanta_Co-founder-of-30BestBarsIndia.jpg"}}
             />
-            <Text style={styles.modalText}>number: { getBar(bars, selectedLat, selectedLong).number }</Text>
-            <Text style={styles.modalText}>email: { getBar(bars, selectedLat, selectedLong).email }</Text>
-            <Text style={styles.modalText}>address: { getBar(bars, selectedLat, selectedLong).address }</Text>
+            <Text style={styles.modalText}>number: { getBar(bars, selectedCoordinate).number }</Text>
+            <Text style={styles.modalText}>email: { getBar(bars, selectedCoordinate).email }</Text>
+            <Text style={styles.modalText}>address: { getBar(bars, selectedCoordinate).address }</Text>
             <View style={ styles.container }>
               <Button style={ styles.button } title="Grįžti" onPress={() => setModalVisibility(false)} />
               <Button style={ styles.button } title="Redaguoti" />
@@ -97,7 +112,13 @@ export default function (props) {
         style={styles.map}
         customMapStyle={MadeMapStyle}
         provider={PROVIDER_GOOGLE}
-        onPress={() => getLocation()}
+        onPress={(e) => { 
+          setSelectedCoordinate({ 
+            latitude: e.nativeEvent.coordinate.latitude,
+            longitude: e.nativeEvent.coordinate.longitude,
+           });
+          placeMarker(selectedCoordinate); 
+        }}
         initialRegion={{
           latitude: 54.687157,
           longitude: 25.279652,
@@ -116,8 +137,7 @@ export default function (props) {
         <Marker
           coordinate={{ latitude: 54.687255, longitude: 25.214918 }}
           onPress={() => {
-            setSelectedLat(54.687255);
-            setSelectedLong(25.214918);
+            setSelectedCoordinate({ latitude: 54.687255, longitude: 25.214918 });
             setModalVisibility(true); 
           }}
         >
@@ -125,8 +145,7 @@ export default function (props) {
         <Marker
           coordinate={{ latitude: 54.680635, longitude: 25.286344 }}
           onPress={() => { 
-            setSelectedLat(54.680635);
-            setSelectedLong(25.286344);
+            setSelectedCoordinate({ latitude: 54.680635, longitude: 25.286344 });
             setModalVisibility(true);
           }}
         >
@@ -136,9 +155,9 @@ export default function (props) {
   );
 }
 
-function getBar(bars, latitude, longitude) {
+function getBar(bars, selectedCoordinate) {
   var bar = bars.find((b) => {
-    return b.longitude == longitude && b.latitude == latitude;
+    return b.longitude == selectedCoordinate.longitude && b.latitude == selectedCoordinate.latitude;
   });
   if (bar != undefined) return bar;
   else
