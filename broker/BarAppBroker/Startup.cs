@@ -33,7 +33,7 @@ namespace BarAppBroker
                 {
                     await context.Response.WriteAsync(
                         "Baru rezervavimo sistemos serveris.\n" +
-                        "Vilniaus Universitetas. PS3 studentai:\n" +
+                        "Vilniaus Universitetas. PS3 2 kurso studentai:\n" +
                         "Julius Syvis\n" +
                         "Mantas Radzevicius\n" +
                         "Saulius Paskevicius\n" +
