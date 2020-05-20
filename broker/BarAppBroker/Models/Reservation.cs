@@ -7,5 +7,11 @@
         public int BarId { get; set; }
         public int OtherPeople { get; set; }
         public string Date { get; set; }
+        public bool Accepted { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} {UserId} {BarId} {OtherPeople} {Date} {Accepted}";
+        }
     }
 }
