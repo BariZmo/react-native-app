@@ -53,9 +53,12 @@ export default function () {
   if (needToLoad) fetchData();
 
   const removeHandler = (id) => {
-    setReservations((prevReservations) => {
-      return prevReservations.filter((reservation) => reservation.id != id);
-    });
+    fetch(
+      `https://barappbroker20200515061143.azurewebsites.net/reservation/${id}`,
+      {
+        method: "DELETE",
+      }
+    ).then(() => setNeedToLoad(true));
   };
 
   const openHandler = (id) => {
@@ -64,14 +67,11 @@ export default function () {
   };
 
   const sendHandler = (id) => {
-    setSelectedItem(id);
     setMessagePageOpen(true);
   };
 
   const evaluateHandler = (id) => {
     setSelectedItem(id);
-    // TODO: open evaluationView
-    console.log("evaluate");
   };
 
   return (

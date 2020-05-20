@@ -49,9 +49,34 @@ export default function () {
   if (needToLoad) fetchData();
 
   const removeHandler = (id) => {
-    setReservations((prevReservations) => {
-      return prevReservations.filter((reservation) => reservation.id != id);
+    fetch(
+      `https://barappbroker20200515061143.azurewebsites.net/reservation/${id}`,
+      {
+        method: "DELETE",
+      }
+    ).then(() => setNeedToLoad(true));
+  };
+
+  const acceptHandler = (item) => {
+    let json = JSON.stringify({
+      id: item.id,
+      userId: item.userId,
+      barId: item.barId,
+      otherPeople: item.otherPeople,
+      date: item.date,
+      accepted: true,
     });
+    fetch(
+      `https://barappbroker20200515061143.azurewebsites.net/reservation/${item.id}`,
+      {
+        method: "PUT",
+        body: json,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(() => setNeedToLoad(true));
   };
 
   const openHandler = (id) => {
@@ -119,6 +144,7 @@ export default function () {
             item={item}
             removeHandler={removeHandler}
             openHandler={openHandler}
+            acceptHandler={acceptHandler}
           />
         )}
       ></FlatList>
@@ -143,7 +169,7 @@ function getReservation(reservations, id) {
     };
 }
 
-function ListItem({ item, removeHandler, openHandler }) {
+function ListItem({ item, removeHandler, openHandler, acceptHandler }) {
   return (
     <View style={itemStyles.item}>
       <View style={itemStyles.firstRow}>
@@ -154,9 +180,8 @@ function ListItem({ item, removeHandler, openHandler }) {
         <TouchableOpacity
           activeOpacity={0.5}
           style={[itemStyles.acceptButton, itemStyles.buttonStyle]}
-          // TODO: move accepted reservation to "all reservations"
           onPress={() => {
-            removeHandler(item.id);
+            acceptHandler(item);
           }}
         >
           <Text>Patvirtinti</Text>
@@ -177,6 +202,7 @@ function ListItem({ item, removeHandler, openHandler }) {
           activeOpacity={0.5}
           style={[itemStyles.cancelButton, itemStyles.buttonStyle]}
           onPress={() => {
+            console.log(item);
             removeHandler(item.id);
           }}
         >
