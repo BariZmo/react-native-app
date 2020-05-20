@@ -13,7 +13,7 @@ import AdminMapsPage from "./Admin/adminMapsView.js";
 import adminBarsView from "./Admin/adminBarsView";
 
 import test from "./SharedItems/ratingsView";
-import maptest from "./Admin/AdminMap";
+import adminMap from "./Admin/AdminMap";
 import addBarPage from "./Admin/addBarPage";
 
 
@@ -32,7 +32,7 @@ export default function App() {
         <Stack.Screen name="test" component={AdminMainView} />
         <Stack.Screen name="AdminBarsPage" component={adminBarsView} />
         <Stack.Screen name="AddBarPage" component={addBarPage} />
-        <Stack.Screen name="AdminMapsPage" component={maptest} />
+        <Stack.Screen name="AdminMapsPage" component={adminMap} />
       </Stack.Navigator>
     </NavigationContainer>
   );

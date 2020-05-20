@@ -57,8 +57,10 @@ export default function ({ navigation }) {
   }
 
   function submit(tradeName, number, email, adress) {
-    // TODO: send data to file or server
-
+    // TODO: send data to file or server and save it
+    //
+    //
+    //
     }
 
 const styles = StyleSheet.create({

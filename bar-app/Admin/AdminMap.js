@@ -12,25 +12,10 @@ import {
 
 import MapView, { PROVIDER_GOOGLE, Circle } from "react-native-maps";
 import { Marker } from "react-native-maps";
-import { SampleBars } from "./SampleBars";
 import MadeMapStyle from "../SharedItems/mapStyle.json";
-import Constants from "expo-constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { NavigationContainer, useLinkProps } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { render } from "react-dom";
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
 var permission = false;
 var location = { latitude: 54.687157, longitude: 25.279652, error: "" };
-var bars = SampleBars;
-var modalVisibility = false;
-var selectedCoordinate = { latitude: 0, longitude: 0 }
 
 function setPermission(bool) {
   permission=bool;
@@ -39,15 +24,6 @@ function setPermission(bool) {
 function setLocation(latitude, longitude, error) {
   location.latitude=latitude;
   location.longitude=longitude;
-}
-
-function setModalVisibility(visibility) {
-  modalVisibility=visibility;
-}
-
-function setSelectedCoordinate(latitude, longitude) {
-  selectedCoordinate.latitude=latitude;
-  selectedCoordinate.longitude=longitude;
 }
 
 export default class AdminMap extends Component {
@@ -69,7 +45,8 @@ export default class AdminMap extends Component {
         ...this.state.markers,
         {
           coordinate: e.nativeEvent.coordinate,
-          cost: `${e.nativeEvent.coordinate.latitude}`
+          // can do actions with marker's coordinates of marker here 
+          // can do actions with marker's coordinates of marker here 
         }
       ]
     })
@@ -78,24 +55,6 @@ export default class AdminMap extends Component {
   render() {
     return (
       <View style={styles.main}>
-        <Modal visible={modalVisibility} animationType="fade" transparent={true}>
-          <View style={styles.modalBackground}>
-            <View style={styles.modal}>
-              <Text style={styles.modalText}>{ getBar(bars, selectedCoordinate).tradeName }</Text>
-              <Image
-                style={styles.imagePortrait}
-                source={{ uri: "https://cdn.foodhospitality.in/wp-content/uploads/2020/05/18182620/Vikram-Achanta_Co-founder-of-30BestBarsIndia.jpg"}}
-              />
-              <Text style={styles.modalText}>number: { getBar(bars, selectedCoordinate).number }</Text>
-              <Text style={styles.modalText}>email: { getBar(bars, selectedCoordinate).email }</Text>
-              <Text style={styles.modalText}>address: { getBar(bars, selectedCoordinate).address }</Text>
-              <View style={ styles.container }>
-                <Button style={ styles.button } title="Grįžti" onPress={() => setModalVisibility(false)} />
-                <Button style={ styles.button } title="Redaguoti" />
-              </View>
-            </View>
-          </View>
-        </Modal>
         <MapView 
           style={styles.map}
           customMapStyle={MadeMapStyle}
@@ -113,13 +72,19 @@ export default class AdminMap extends Component {
             <Marker {...marker} >
               <Image
                 style={styles.marker}
-                source={{ uri: "https://toppng.com/uploads/preview/map-point-google-map-marker-gif-11562858751s4qufnxuml.png"}}
-
+                source={{ uri: "https://codelabs.developers.google.com/codelabs/advanced-android-training-google-maps/img/3077e66f9f7a1a46.png"}}
               />
-              <Text style={styles.text}>{marker.cost}</Text>
             </Marker>
           )
         })}
+          <Circle
+            center={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            radius={1000}
+            fillColor={"rgba(255, 52, 52, 0.2)"}
+          />
         </MapView>
     </View>
     );
@@ -163,23 +128,6 @@ function requestCameraPermission() {
   }
 };
 
-function getBar(bars, selectedCoordinate) {
-  var bar = bars.find((b) => {
-    return b.longitude == selectedCoordinate.longitude && b.latitude == selectedCoordinate.latitude;
-  });
-  if (bar != undefined) return bar;
-  else
-    return {
-      tradeName: "tr",
-      number: "nu",
-      email: "em",
-      address: "ad",
-      id: 0,
-      latitude: 0,
-      longitude: 0,
-    };
-}
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -188,10 +136,9 @@ const styles = StyleSheet.create({
   marker: {
     backgroundColor: "transparent",
     width: 40,
-    height: 40,
+    height: 60,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#550bbc",
     padding: 5,
     borderRadius: 5,
   },
