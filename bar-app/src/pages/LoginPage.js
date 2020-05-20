@@ -50,16 +50,33 @@ function submit(email, password, navigation) {
       let viableUsers = users.find(
         (e) => e.email == email && e.password == password
       );
-      if (viableUsers != undefined) navigation.navigate("UserPage");
-      else {
+      if (viableUsers != undefined) {
+        if (viableUsers.blocked == true) {
+          Alert.alert(
+            "Prisijungimas uždraustas:",
+            "Jūs esate užblokuotas dėl nepriimtinos veiklos.",
+            [
+              {
+                text: "Tęsti",
+                onPress: () => {},
+              },
+            ]
+          );
+        } else {
+          global.loginId = viableUsers.id;
+          navigation.navigate("UserPage");
+        }
+      } else {
         fetch("https://barappbroker20200515061143.azurewebsites.net/bar")
           .then((response) => response.json())
           .then((users) => {
             let viableBars = users.find(
               (e) => e.email == email && e.password == password
             );
-            if (viableBars != undefined) navigation.navigate("StaffPage");
-            else {
+            if (viableBars != undefined) {
+              global.loginId = viableBars.id;
+              navigation.navigate("StaffPage");
+            } else {
               fetch(
                 "https://barappbroker20200515061143.azurewebsites.net/admin"
               )
@@ -68,9 +85,10 @@ function submit(email, password, navigation) {
                   let viableAdmins = users.find(
                     (e) => e.email == email && e.password == password
                   );
-                  if (viableAdmins != undefined)
+                  if (viableAdmins != undefined) {
+                    global.loginId = viableAdmins.id;
                     navigation.navigate("AdminPage");
-                  else {
+                  } else {
                     Alert.alert("Klaida:", "Duomenys neteisingi", [
                       {
                         text: "Tęsti",

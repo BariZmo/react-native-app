@@ -24,6 +24,7 @@ export default function (props) {
   });
 
   const MainPage = (role) => {
+    console.log(global.loginId);
     return (
       <View style={styles.app}>
         {profileVisible ? (
