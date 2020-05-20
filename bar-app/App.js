@@ -9,7 +9,7 @@ import AdminMainView from "./Admin/adminMainView";
 import LoginPage from "./src/pages/LoginPage.js";
 import StaffPage from "./src/pages/staff-pages/StaffPage.js";
 import ReportView from "./User/ReportView.js";
-import MapPage from "./SharedItems/mapsView.js";
+import AdminMapPage from "./Admin/adminMapsView.js";
 import adminBarsView from "./Admin/adminBarsView";
 
 import test from "./SharedItems/ratingsView";
@@ -27,9 +27,9 @@ export default function App() {
         <Stack.Screen name="AdminPage" component={AdminMainView} />
         <Stack.Screen name="StaffPage" component={StaffPage} />
         <Stack.Screen name="UserPage" component={UserMainView} />
-        <Stack.Screen name="test" component={test} />
+        <Stack.Screen name="test" component={AdminMainView} />
         <Stack.Screen name="AdminBarsPage" component={adminBarsView} />
-        <Stack.Screen name="MapPage" component={MapPage} />
+        <Stack.Screen name="AdminMapPage" component={AdminMapPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

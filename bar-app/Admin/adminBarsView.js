@@ -9,12 +9,12 @@ import {
   Modal,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { NavigationContainer, useLinkProps } from '@react-navigation/native';
+import { NavigationContainer, useLinkProps, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // *sort by date
 
-export default function ({ navigation }) {
+export default function (props, { navigation }) {
   const [users, setUsers] = useState([
     {
       id: 1, name: "Stikliai", adress: "Stiklių g. 12", phone: "8611111111", email: "stikliai@mail.com",
@@ -78,13 +78,12 @@ export default function ({ navigation }) {
 
   return (
     <View style={ styles.barButton }>
-        <Button 
+        <GoToButton 
           color="#158a51" 
           title="Pridėti barą" 
-          onPress={() => {
-            enter(navigation);
-            //navigation.navigate("MapPage");
-          }}
+          //onPress={() => {
+          //  navigation.navigate("MapPage");
+          //}}
           />
       <FlatList
         data={users}
@@ -95,8 +94,14 @@ export default function ({ navigation }) {
   );
 }
 
-function enter(navigation) {
-  navigation.navigate("MapPage");
+function GoToButton() {
+  const navigation = useNavigation();
+  return (
+    <Button
+      title="Pridėti barą"
+      onPress={() => navigation.navigate("AdminMapPage")}
+    />
+  );
 }
 
 const styles = StyleSheet.create({
