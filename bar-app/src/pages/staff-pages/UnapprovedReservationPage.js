@@ -7,14 +7,32 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from "react-native";
-import { SampleReservations } from "./SampleReservations";
 import { styles, itemStyles, modalStyles } from "./ReservationListStyles";
 
 export default function () {
-  const [reservations, setReservations] = useState(SampleReservations);
+  const [reservations, setReservations] = useState([]);
   // selectedItem is identified by id
   const [selectedItem, setSelectedItem] = useState(-1);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [needToLoad, setNeedToLoad] = useState(true);
+
+  // Load reservations from broker
+  let fetchData = () => {
+    fetch("https://barappbroker20200515061143.azurewebsites.net/reservation")
+      .then((response) => {
+        setNeedToLoad(false);
+        console.log("Received unapproved reservations.");
+        return response.json();
+      })
+      .then((responseJson) => {
+        setReservations(
+          responseJson.filter(
+            (reservation) => reservation.barId == global.loginId
+          )
+        );
+      });
+  };
+  if (needToLoad) fetchData();
 
   const removeHandler = (id) => {
     setReservations((prevReservations) => {
@@ -29,7 +47,7 @@ export default function () {
 
   return (
     <View style={styles.container}>
-      {reservations.length == 0 ? (
+      {reservations.length == 0 || reservations.length == undefined ? (
         <Text style={styles.title}>Nepatvirtintų rezervacijų nerasta.</Text>
       ) : (
         <Text style={styles.title}>
