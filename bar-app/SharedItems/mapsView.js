@@ -3,20 +3,16 @@ import {
   StyleSheet,
   Text,
   View,
-  List,
-  Button,
   TextInput,
   Modal,
-  Image,
+  TouchableHighlight,
   PermissionsAndroid,
+  Alert,
 } from "react-native";
 
 import MapView, { PROVIDER_GOOGLE, Circle } from "react-native-maps";
 import { Marker } from "react-native-maps";
-import { SampleBars } from "./../Admin/SampleBars";
 import MadeMapStyle from "./mapStyle.json";
-import Constants from "expo-constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function (props) {
   const [permission, setPremission] = useState(false);
@@ -25,10 +21,31 @@ export default function (props) {
     longitude: 25.279652,
     error: "",
   });
-  const [bars, setBars] = useState(SampleBars);
+  const [bars, setBars] = useState([]);
   const [modalVisibility, setModalVisibility] = useState(false);
   const [selectedLat, setSelectedLat] = useState(-1);
   const [selectedLong, setSelectedLong] = useState(-1);
+
+  const [inputDate, setInputDate] = useState("");
+
+  const [needLoad, setNeedLoad] = useState(true);
+  let fetchData = () => {
+    fetch("https://barappbroker20200515061143.azurewebsites.net/bar")
+      .then((response) => {
+        setNeedLoad(false);
+        console.log("Bars loaded.");
+        return response.json();
+      })
+      .then((json) => {
+        json.forEach((b) => {
+          let match = b.coordinates.match(/\d{0,}\.\d{0,}/g);
+          b.latitude = parseFloat(match[0]);
+          b.longitude = parseFloat(match[1]);
+        });
+        setBars(json);
+      });
+  };
+  if (needLoad) fetchData();
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -39,7 +56,6 @@ export default function (props) {
       (error) => setLocation({ error: error.message }),
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 2000 };
     });
-    console.log(location);
   };
 
   const requestCameraPermission = () => {
@@ -47,8 +63,8 @@ export default function (props) {
       const granted = PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
-          title: "Very nice good app asks your location <333333",
-          message: "Pls press confirm by pressing right OK",
+          title: "",
+          message: "",
           buttonNeutral: "OK", //askmelatter
           buttonNegative: "OK", //No
           buttonPositive: "OK",
@@ -76,17 +92,77 @@ export default function (props) {
       <Modal visible={modalVisibility} animationType="fade" transparent={true}>
         <View style={styles.modalBackground}>
           <View style={styles.modal}>
-            <Text style={styles.modalText}>{ getBar(bars, selectedLat, selectedLong).tradeName }</Text>
-            <Image
-              style={styles.imagePortrait}
-              source={{ uri: "https://cdn.foodhospitality.in/wp-content/uploads/2020/05/18182620/Vikram-Achanta_Co-founder-of-30BestBarsIndia.jpg"}}
-            />
-            <Text style={styles.modalText}>number: { getBar(bars, selectedLat, selectedLong).number }</Text>
-            <Text style={styles.modalText}>email: { getBar(bars, selectedLat, selectedLong).email }</Text>
-            <Text style={styles.modalText}>address: { getBar(bars, selectedLat, selectedLong).address }</Text>
-            <View style={ styles.container }>
-              <Button style={ styles.button } title="Grįžti" onPress={() => setModalVisibility(false)} />
-              <Button style={ styles.button } title="Rezervuoti" />
+            <Text style={styles.modalTitle}>
+              {getBar(bars, selectedLat, selectedLong).tradeName}
+            </Text>
+            <Text style={styles.modalText}>
+              Tel. nr.: {getBar(bars, selectedLat, selectedLong).number}
+            </Text>
+            <Text style={styles.modalText}>
+              El. paštas: {getBar(bars, selectedLat, selectedLong).email}
+            </Text>
+            <Text style={styles.modalText}>
+              Adresas: {getBar(bars, selectedLat, selectedLong).address}
+            </Text>
+            <TextInput
+              style={styles.modalInput}
+              placeholder={"Apsilankymo data"}
+              placeholderTextColor={"white"}
+              value={inputDate}
+              onChangeText={(text) => setInputDate(text)}
+            ></TextInput>
+            <View style={styles.container}>
+              <TouchableHighlight
+                style={styles.modalButton}
+                onPress={() => {
+                  setInputDate("");
+                  setModalVisibility(false);
+                }}
+                underlayColor={"#bde8f6"}
+              >
+                <Text>Grįžti</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.modalButton}
+                onPress={() => {
+                  let json = JSON.stringify({
+                    id: -1,
+                    userId: global.loginId,
+                    barId: getBar(bars, selectedLat, selectedLong).id,
+                    otherPeople: 0,
+                    date: inputDate,
+                    accepted: false,
+                  });
+
+                  fetch(
+                    "https://barappbroker20200515061143.azurewebsites.net/reservation",
+                    {
+                      method: "POST",
+                      body: json,
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                      },
+                    }
+                  ).then(() => {
+                    Alert.alert(
+                      "Pranešimas",
+                      "Apie rezervaciją pranešta barui, laukite patvirtinimo",
+                      [
+                        {
+                          text: "Tęsti",
+                          onPress: () => {},
+                        },
+                      ]
+                    );
+                    setModalVisibility(false);
+                    setInputDate("");
+                  });
+                }}
+                underlayColor={"#bde8f6"}
+              >
+                <Text>Rezervuoti</Text>
+              </TouchableHighlight>
             </View>
           </View>
         </View>
@@ -111,24 +187,20 @@ export default function (props) {
           radius={1000}
           fillColor={"rgba(255, 52, 52, 0.2)"}
         />
-        <Marker
-          coordinate={{ latitude: 54.687255, longitude: 25.214918 }}
-          onPress={() => {
-            setSelectedLat(54.687255);
-            setSelectedLong(25.214918);
-            setModalVisibility(true); 
-          }}
-        >
-        </Marker>
-        <Marker
-          coordinate={{ latitude: 54.680635, longitude: 25.286344 }}
-          onPress={() => { 
-            setSelectedLat(54.680635);
-            setSelectedLong(25.286344);
-            setModalVisibility(true);
-          }}
-        >
-        </Marker>
+        {bars.map((prop) => (
+          <Marker
+            key={prop.id}
+            coordinate={{
+              latitude: prop.latitude,
+              longitude: prop.longitude,
+            }}
+            onPress={() => {
+              setSelectedLat(prop.latitude);
+              setSelectedLong(prop.longitude);
+              setModalVisibility(true);
+            }}
+          ></Marker>
+        ))}
       </MapView>
     </View>
   );
@@ -136,7 +208,6 @@ export default function (props) {
 
 function getBar(bars, latitude, longitude) {
   var bar = bars.find((b) => {
-    // code below doesn't work 
     return b.longitude == longitude && b.latitude == latitude;
   });
   if (bar != undefined) return bar;
@@ -167,7 +238,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: "80%",
-    height: "80%",
+    height: "70%",
     backgroundColor: "#ECA80B",
     borderRadius: 20,
     borderColor: "black",
@@ -182,6 +253,13 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "rgba(52, 52, 52, 0.6)",
   },
+  modalButton: {
+    padding: 10,
+    margin: 10,
+    backgroundColor: "skyblue",
+    borderRadius: 15,
+    borderWidth: 1,
+  },
   imagePortrait: {
     width: 240,
     height: 180,
@@ -189,16 +267,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   modalText: {
+    fontSize: 16,
+  },
+  modalInput: {
+    backgroundColor: "#ECD80B",
+    borderRadius: 15,
+    borderWidth: 2,
+    width: "80%",
+    height: 40,
+    padding: 3,
+  },
+  modalTitle: {
     fontSize: 20,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 25,
   },
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   button: {
-    backgroundColor: 'green',
-    width: '30%',
-  }
+    backgroundColor: "green",
+    width: "30%",
+  },
 });

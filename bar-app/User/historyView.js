@@ -65,9 +65,13 @@ export default function (props) {
           style={styles.touchable}
           onPress={() => showDetails(infoElement.id)}
         >
-          <Text>Bar: {infoElement.bar}{"\n"}
-                DATE: {infoElement.date}{"\n"}
-                Money spent: {infoElement.money}</Text>
+          <Text>
+            Bar: {infoElement.bar}
+            {"\n"}
+            DATE: {infoElement.date}
+            {"\n"}
+            Money spent: {infoElement.money}
+          </Text>
         </TouchableOpacity>
       </View>
     );
