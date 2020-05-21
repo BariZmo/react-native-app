@@ -13,6 +13,9 @@ import {
 import MapView, { PROVIDER_GOOGLE, Circle } from "react-native-maps";
 import { Marker } from "react-native-maps";
 import MadeMapStyle from "../SharedItems/mapStyle.json";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import addBarPage from './addBarPage';
 
 var permission = false;
 var location = { latitude: 54.687157, longitude: 25.279652, error: "" };
@@ -89,6 +92,11 @@ export default class AdminMap extends Component {
             fillColor={"rgba(255, 52, 52, 0.2)"}
           />
         </MapView>
+        <View style={styles.addButton} >
+          <Button 
+            title="Pridėti barą"
+            /* add navigation.navigate("AdminPage"), but doesnt work*/ /> 
+        </View>
     </View>
     );
   }
@@ -104,7 +112,7 @@ function getLocation() {
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 2000 };
   });
   console.log(location);
-};
+}
 
 function requestCameraPermission() {
   try {
@@ -129,13 +137,9 @@ function requestCameraPermission() {
   } catch (err) {
     console.warn(err);
   }
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   marker: {
     backgroundColor: "transparent",
     width: 40,
@@ -188,11 +192,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 10,
     marginBottom: 10,
+  }, 
+  addButton: {
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'transparent',
+    height: 75,
+    width: 75,
+    borderRadius: 5,
+    margin: 5,
+    bottom:0,
+    right:0,
   },
-  button: {
-    backgroundColor: 'green',
-    width: '30%',
-  }
 });
 
 AppRegistry.registerComponent('maps', () => maps);
