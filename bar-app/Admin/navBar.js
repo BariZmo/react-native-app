@@ -39,22 +39,16 @@ export default function (props) {
   const SetImage = (com, index) => {
     var path;
     com == "userComponentsMain" && index == 1
-      ? (path =
-          "Pagrindinis meniu")
+      ? (path = "Pagrindinis")
       : index == 1
-      ? (path =
-          "Pagrindinis meniu")
+      ? (path = "Pagrindinis")
       : index == 0
-      ? (path =
-          "Naudotojai")
+      ? (path = "Naudotojai")
       : index == 2
-      ? (path =
-          "Barai")
+      ? (path = "Barai")
       : null;
 
-    return (
-      <Text style={styles.img}>{path}</Text>
-    );
+    return <Text style={styles.img}>{path}</Text>;
   };
 
   const GetUser = (com, setPageNav) => {
@@ -112,7 +106,7 @@ const styles = StyleSheet.create({
   },
   img: {
     alignItems: "center",
-    marginTop: 25,
+    marginTop: 20,
     fontWeight: "bold",
     fontSize: 17,
   },

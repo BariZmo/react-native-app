@@ -6,7 +6,6 @@ import NavBar from "./navBar";
 import AdminUsersView from "./adminUsersView";
 import AdminBarsView from "./adminBarsView";
 
-
 export default function (props) {
   const [page, setPage] = useState(false);
   const [pageNav, setPageNav] = useState(2);
@@ -27,7 +26,7 @@ export default function (props) {
       <View style={styles.app}>
         {profileVisible ? (
           <View style={styles.touch}>
-            <TouchableOpacity onPress={() => setPage(!page)}>
+            <TouchableOpacity onPress={() => setPage(!page)} activeOpacity={1}>
               <Profile
                 profileVisibility={profileVisible}
                 isBlocked={user.ban == 0 ? false : true}
@@ -47,9 +46,9 @@ export default function (props) {
         ) : pageNav == 1 ? (
           <AdminUsersView show={false} />
         ) : pageNav == 3 ? (
-            <AdminBarsView show={false} />
+          <AdminBarsView show={false} />
         ) : pageNav == 4 ? (
-            MainPage("admin")
+          MainPage("admin")
         ) : null}
       </View>
     );
