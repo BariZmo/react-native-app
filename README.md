@@ -23,4 +23,5 @@ Map api: https://www.npmjs.com/package/react-native-maps
   - email: `admin@admin.com` password: `admin`
   - [Source](https://barappbroker20200515061143.azurewebsites.net/admin)
 - Test page: 
-  - email: ` `  password: ` `
+  - email: ` `
+  - password: ` `
