@@ -8,32 +8,43 @@ import ProfileView from "./profileView";
 import ReservationView from "./reservationsView";
 import HistoryView from "./historyView";
 
-export default function (props) {
+export default function () {
   const [page, setPage] = useState(false);
   const [pageNav, setPageNav] = useState(2);
   const [profileVisible, setProfileVisible] = useState(true);
 
-  const [user, setUser] = useState({
-    id: 10,
-    name: "Mantas",
-    email: "mantas@et.lt",
-    number: 112,
-    rating: 10,
-    password: "Bestukas",
-    ban: 0,
-  });
+  const [user, setUser] = useState({});
+  const [needLoad, setNeedLoad] = useState(true);
+  let loadUser = () => {
+    fetch("https://barappbroker20200515061143.azurewebsites.net/user")
+      .then((response) => {
+        setNeedLoad(false);
+        return response.json();
+      })
+      .then((json) => {
+        console.log("Loaded users.");
+        let user = json.find((u) => u.id == global.loginId);
+        if (user != undefined) {
+          fetch(
+            `https://barappbroker20200515061143.azurewebsites.net/userrating/${global.loginId}`
+          )
+            .then((response) => response.json())
+            .then((rating) => {
+              user.rating = rating;
+              setUser(user);
+            });
+        }
+      });
+  };
+  if (needLoad) loadUser();
 
   const MainPage = (role) => {
-    console.log(global.loginId);
     return (
       <View style={styles.app}>
         {profileVisible ? (
           <View style={styles.touch}>
             <TouchableOpacity onPress={() => setPage(!page)}>
-              <Profile
-                profileVisibility={profileVisible}
-                isBlocked={user.ban == 0 ? false : true}
-              />
+              <Profile profileVisibility={profileVisible} user={user} />
             </TouchableOpacity>
           </View>
         ) : null}
@@ -42,7 +53,9 @@ export default function (props) {
             <ProfileView
               userInfo={user}
               show={false}
-              changeUserInfo={setUser}
+              changeUserInfo={(newData) => {
+                console.log("change");
+              }}
               SetProfile={setProfileVisible}
             />
           ) : null}
@@ -69,8 +82,6 @@ export default function (props) {
     );
   };
 
-  //{pageNav == 1 ? MainPage("user") : pageNav == 2 ? <ReservationView show={false} /> : null}
-  // when navigating close edit page
   return (
     <View style={styles.app}>
       {Navigation()}

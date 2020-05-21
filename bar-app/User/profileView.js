@@ -32,18 +32,6 @@ export default function (props) {
     setPasswordValue(eneteredPassword);
   };
 
-  const userInfoHandler = () => {
-    props.changeUserInfo({
-      ["id"]: props.userInfo.id,
-      ["name"]: props.userInfo.name,
-      ["email"]: emailValue,
-      ["number"]: numberValue,
-      ["rating"]: props.userInfo.rating,
-      ["password"]: passwordValue,
-      ["ban"]: props.userInfo.ban,
-    });
-  };
-
   const [reportVisibility, setReportVisibility] = useState(false);
 
   const ReportOpen = (setProfVisibility) => {
@@ -56,12 +44,6 @@ export default function (props) {
     return (
       <View style={styles.app}>
         <View style={styles.texts}>
-          {!isChangeMode ? (
-            <View style={styles.row}>
-              <Text> Id: </Text>
-              <Text style={styles.dynamicText}> {props.userInfo.id}</Text>
-            </View>
-          ) : null}
           {!isChangeMode ? (
             <View style={styles.row}>
               <Text> Rating: </Text>
