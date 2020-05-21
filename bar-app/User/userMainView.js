@@ -53,8 +53,8 @@ export default function () {
             <ProfileView
               userInfo={user}
               show={false}
-              changeUserInfo={(newData) => {
-                console.log("change");
+              changeUserInfo={() => {
+                setNeedLoad(true);
               }}
               SetProfile={setProfileVisible}
             />

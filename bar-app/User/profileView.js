@@ -12,8 +12,30 @@ export default function (props) {
   };
 
   const saveChanges = () => {
-    selectChangeMode();
-    userInfoHandler();
+    let json = JSON.stringify({
+      id: global.loginId,
+      name: props.userInfo.name,
+      surname: props.userInfo.surname,
+      email: emailValue,
+      number: numberValue,
+      password: passwordValue,
+      blocked: props.userInfo.blocked,
+    });
+
+    fetch(
+      `https://barappbroker20200515061143.azurewebsites.net/user/${global.loginId}`,
+      {
+        method: "PUT",
+        body: json,
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      }
+    ).then(() => {
+      selectChangeMode();
+      props.changeUserInfo();
+    });
   };
 
   const [emailValue, setEmailValue] = useState(props.userInfo.email);
@@ -46,12 +68,12 @@ export default function (props) {
         <View style={styles.texts}>
           {!isChangeMode ? (
             <View style={styles.row}>
-              <Text> Rating: </Text>
+              <Text>Jūsų reitingas: </Text>
               <Text style={styles.dynamicText}> {props.userInfo.rating} </Text>
             </View>
           ) : null}
           <View style={styles.row}>
-            <Text> Number: </Text>
+            <Text>Tel. nr.: </Text>
             {!isChangeMode ? (
               <Text style={styles.dynamicText}> {props.userInfo.number} </Text>
             ) : null}
@@ -67,7 +89,7 @@ export default function (props) {
           </View>
 
           <View style={styles.row}>
-            <Text> Email: </Text>
+            <Text>El. paštas: </Text>
             {!isChangeMode ? (
               <Text style={styles.dynamicText}> {props.userInfo.email} </Text>
             ) : null}
@@ -81,7 +103,7 @@ export default function (props) {
             ) : null}
           </View>
           <View style={styles.row}>
-            <Text> Password: </Text>
+            <Text>Slaptažodis: </Text>
             {!isChangeMode ? (
               <Text style={styles.dynamicText}>
                 {" "}
@@ -103,7 +125,6 @@ export default function (props) {
         <View style={styles.buttonView}>
           <TouchableOpacity
             style={styles.button}
-            title={isChangeMode ? "Confirm changes" : "Change profile info"}
             onPress={isChangeMode ? saveChanges : selectChangeMode}
           >
             <Text style={styles.buttonText}>
