@@ -11,6 +11,7 @@ import {
 import {} from "react-native-gesture-handler";
 import { styles, itemStyles, modalStyles } from "./ReservationListStyles";
 import ReportView from "../../../User/ReportView";
+import RatingsView from "../../../SharedItems/ratingsView";
 
 export default function () {
   const [reservations, setReservations] = useState([]);
@@ -19,6 +20,7 @@ export default function () {
   const [menuOpen, setMenuOpen] = useState(false);
   const [messagePageOpen, setMessagePageOpen] = useState(false);
   const [needToLoad, setNeedToLoad] = useState(true);
+  const [reviewPageOpen, setReviewPageOpen] = useState(false);
 
   // Load reservations from broker
   let fetchData = () => {
@@ -71,6 +73,7 @@ export default function () {
   };
 
   const evaluateHandler = (id) => {
+    setReviewPageOpen(true);
     setSelectedItem(id);
   };
 
@@ -109,6 +112,30 @@ export default function () {
             setMessagePageOpen(false);
           }}
         ></ReportView>
+      ) : reviewPageOpen == true ? (
+        <View>
+          <RatingsView
+            entityId={getReservation(reservations, selectedItem).userId}
+            entityRole={"User"}
+            placeholder={"\tPvz. Triukšmavo"}
+            closeHandler={() => {
+              setReviewPageOpen(false);
+            }}
+            sendHandler={() => {
+              Alert.alert(
+                "Pranešimas:",
+                "Jūsų įvertinimas sėkmingai išsaugotas.",
+                [
+                  {
+                    text: "Tęsti",
+                    onPress: () => {},
+                  },
+                ]
+              );
+              setReviewPageOpen(false);
+            }}
+          />
+        </View>
       ) : (
         <View>
           {reservations.length == 0 ? (

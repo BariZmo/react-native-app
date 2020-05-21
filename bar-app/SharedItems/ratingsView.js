@@ -15,7 +15,7 @@ import { TextInput } from "react-native-gesture-handler";
 // setComment <--
 
 export default function (props) {
-  const [rating, setLocRating] = useState(1);
+  const [rating, setLocRating] = useState(3);
   const [comment, setLocComment] = useState();
 
   const Star = ({ index }) => {
@@ -58,26 +58,84 @@ export default function (props) {
             <Star index={4} />
             <Star index={5} />
           </View>
-          <Text style={inputles.text}>Komentaras </Text>
+          <Text style={inputles.text}>Komentaras</Text>
           <TextInput
             text={inputles.text}
             style={inputles.input}
             multiline={true}
-            placeholder={`  Pvz. "Viskas puiku, bet  trūko vibo "`}
+            placeholder={props.placeholder}
             placeholderTextColor="white"
             onChangeText={setInputs}
             value={comment}
           />
           <TouchableOpacity
             style={styles.buttonSend}
-            onPress={() => props.SetVisibility(false)}
+            onPress={() => {
+              fetch(
+                "https://barappbroker20200515061143.azurewebsites.net/rating"
+              )
+                .then((response) => response.json())
+                .then((ratings) => {
+                  let olderRating = ratings.find(
+                    (r) =>
+                      r.ratedEntityId == props.entityId &&
+                      r.ratedEntityRole == props.entityRole
+                  );
+
+                  if (olderRating != undefined) {
+                    // PUT
+                    let json = JSON.stringify({
+                      comment: comment,
+                      id: olderRating.id,
+                      ratedEntityId: props.entityId,
+                      ratedEntityRole: props.entityRole,
+                      score: rating,
+                    });
+
+                    fetch(
+                      `https://barappbroker20200515061143.azurewebsites.net/rating/${olderRating.id}`,
+                      {
+                        method: "PUT",
+                        body: json,
+                        headers: {
+                          Accept: "application/json",
+                          "Content-Type": "application/json",
+                        },
+                      }
+                    );
+                  } else {
+                    // POST
+                    let json = JSON.stringify({
+                      comment: comment,
+                      id: -1,
+                      ratedEntityId: props.entityId,
+                      ratedEntityRole: props.entityRole,
+                      score: rating,
+                    });
+
+                    fetch(
+                      "https://barappbroker20200515061143.azurewebsites.net/rating",
+                      {
+                        method: "POST",
+                        body: json,
+                        headers: {
+                          Accept: "application/json",
+                          "Content-Type": "application/json",
+                        },
+                      }
+                    );
+                  }
+                });
+
+              props.sendHandler();
+            }}
           >
             <Text style={styles.buttonSendText}>Įvertinti</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.buttonBack}
-            onPress={() => props.SetVisibility(false)}
+            onPress={() => props.closeHandler()}
           >
             <Text style={styles.buttonBackText}>Grįžti</Text>
           </TouchableOpacity>
@@ -116,6 +174,7 @@ const inputles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 3,
     width: "80%",
+    padding: 5,
   },
 });
 
