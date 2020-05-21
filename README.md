@@ -17,7 +17,7 @@ Map api: https://www.npmjs.com/package/react-native-maps
   - [Source](https://barappbroker20200515061143.azurewebsites.net/user)
 - Staff:
   - email: `banginis@baras.com` - password: `banbar`
-  - email: `bariukas@baras.com` - password: `banbar`
+  - email: `bariukas@baras.com` - password: `barbar`
   - [Source](https://barappbroker20200515061143.azurewebsites.net/bar)
 - Admin:
   - email: `admin@admin.com` password: `admin`
