@@ -3,38 +3,41 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableOpacity,
   FlatList,
-  TextComponent,
-  Modal,
   Animated,
 } from "react-native";
-import { GestureHandler } from "expo";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-// *sort by date
+export default function () {
+  const [reservations, setReservations] = useState([]);
+  const [needLoad, setNeedLoad] = useState(true);
 
-export default function (props) {
-  // temp, sb from props
-  const [infoArray, setInfoArray] = useState([
-    { id: 1, date: "2020 - 08 - 08", bar: "stikliai", confirmed: true },
-    { id: 2, date: "2020 - 05 - 10", bar: "solento", confirmed: false },
-    { id: 3, date: "2020 - 08 - 08", bar: "tv", confirmed: true },
-    { id: 4, date: "2020 - 05 - 10", bar: "bokstas", confirmed: false },
-    { id: 5, date: "2020 - 08 - 08", bar: "pasaku", confirmed: true },
-    { id: 6, date: "2020 - 05 - 10", bar: "parkas", confirmed: false },
-    { id: 7, date: "2020 - 08 - 08", bar: "gedimino", confirmed: true },
-    { id: 8, date: "2020 - 05 - 10", bar: "pilis", confirmed: false },
-    { id: 9, date: "2020 - 08 - 08", bar: "inkilu", confirmed: true },
-    { id: 10, date: "2020 - 05 - 10", bar: "rojus", confirmed: false },
-    { id: 11, date: "2020 - 08 - 08", bar: "gatves", confirmed: true },
-    { id: 12, date: "2020 - 05 - 10", bar: "virtis", confirmed: false },
-  ]);
+  let loadReservations = () =>
+    fetch("https://barappbroker20200515061143.azurewebsites.net/reservation")
+      .then((response) => {
+        console.log("Loaded reservations.");
+        setNeedLoad(false);
+        return response.json();
+      })
+      .then((json) => {
+        let myReservations = json.filter((res) => res.userId == global.loginId);
+        if (myReservations != undefined) {
+          fetch("https://barappbroker20200515061143.azurewebsites.net/bar")
+            .then((response) => response.json())
+            .then((barJson) => {
+              myReservations.forEach((res) => {
+                let myBar = barJson.find((b) => res.barId == b.id);
+                if (myBar != undefined) {
+                  res.bar = myBar.tradeName;
+                }
+              });
 
-  const [info, setInfo] = useState();
-
-  const [modalVisibility, setModalVisibility] = useState(false);
+              setReservations(myReservations);
+            });
+        }
+      });
+  if (needLoad) loadReservations();
 
   const LeftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
@@ -51,10 +54,10 @@ export default function (props) {
     );
   };
   const LeftActionOpen = () => {
-    console.log("more info");
+    console.log("More information");
   };
 
-  const RightActions = ({ progress, dragX, index }) => {
+  const RightActions = ({ progress, dragX, id }) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0],
@@ -64,7 +67,12 @@ export default function (props) {
       <View style={styles.rightBack}>
         <TouchableOpacity
           style={styles.swipeTouch}
-          onPress={() => DeleteAction(index)}
+          onPress={() => {
+            fetch(
+              `https://barappbroker20200515061143.azurewebsites.net/reservation/${id}`,
+              { method: "DELETE" }
+            ).then(() => setNeedLoad(true));
+          }}
         >
           <Animated.Text style={[styles.rightText, { transform: [{ scale }] }]}>
             Atšaukti
@@ -74,22 +82,16 @@ export default function (props) {
     );
   };
 
-  const DeleteAction = (index) => {
-    var arr = infoArray;
-    arr.splice(index, 1);
-    setInfoArray([...arr]);
-  };
-
-  function Item({ infoElement, infoIndex }) {
+  function Item({ infoElement }) {
     return (
       <Swipeable
         renderLeftActions={LeftActions}
         onSwipeableLeftOpen={LeftActionOpen}
         renderRightActions={(progress, dragX) => (
-          <RightActions progress={progress} dragX={dragX} index={infoIndex} />
+          <RightActions progress={progress} dragX={dragX} id={infoElement.id} />
         )}
         onSwipeableRightOpen={(progress, dragX) => (
-          <RightActions progress={progress} dragX={dragX} index={infoIndex} />
+          <RightActions progress={progress} dragX={dragX} id={infoElement.id} />
         )}
       >
         <View style={styles.spacer}></View>
@@ -110,15 +112,12 @@ export default function (props) {
       </Swipeable>
     );
   }
-  // detailed info product - price
 
   return (
     <View style={styles.main}>
       <FlatList
-        data={infoArray}
-        renderItem={({ item, index }) => (
-          <Item infoElement={item} infoIndex={index} />
-        )}
+        data={reservations}
+        renderItem={({ item }) => <Item infoElement={item} />}
         keyExtractor={(item) => item.id}
       />
     </View>
