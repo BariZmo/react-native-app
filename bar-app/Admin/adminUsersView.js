@@ -88,9 +88,6 @@ export default function (props) {
             <Text style={styles.buttonText}>SIŲSTI PRANEŠIMĄ</Text>
           </TouchableHighlight>
         </View>
-        <View style={styles.secondLine}>
-          <Text>ID: {infoElement.id}</Text>
-        </View>
         <View style={styles.fourthLine}>
           <Text>El. paštas: {infoElement.email}</Text>
         </View>

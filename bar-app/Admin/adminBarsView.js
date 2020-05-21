@@ -1,84 +1,89 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  FlatList,
-  TextComponent,
-  Modal,
-} from "react-native";
+import { StyleSheet, Text, View, Alert, FlatList } from "react-native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 // *sort by date
 
 export default function (props) {
-  const [users, setUsers] = useState([
-    {
-      id: 1, name: "Stikliai", adress: "Stiklių g. 12", phone: "8611111111", email: "stikliai@mail.com",
-    },
-    {
-      id: 2, name: "Solento", adress: "Solento g. 16", phone: "8622222222", email: "solento@mail.com",
-    },
-    {
-      id: 3, name: "tV", adress: "Lazdijų g. 32", phone: "8633333333", email: "tv@mail.com",
-    },
-    {
-      id: 4, name: "Bokštas", adress: "Bokšto g. 22", phone: "8644444444", email: "bokstas@mail.com",
-    },
-    {
-      id: 5, name: "Pasaka", adress: "Įsivaizduojama g. 69", phone: "8655555555", email: "pasakos@mail.com",
-    },
-    {
-      id: 6, name: "Parkas", adress: "Parko g. 62", phone: "8666666666", email: "parkas@mail.com",
-    },
-    {
-      id: 7, name: "Gedimino", adress: "Gedimino g. 1", phone: "8677777777", email: "gediminas@mail.com",
-    },
-    {
-      id: 8, name: "Pilies", adress: "Pilies g. 10", phone: "8688888888", email: "pilis@mail.com",
-    },
-    {
-      id: 9, name: "Inkilas", adress: "Medžio g. 6", phone: "8699999999", email: "Inkilai@mail.com",
-    },
-    {
-      id: 10, name: "Rojus", adress: "Dangaus g. 62", phone: "8696969696", email: "heaven@mail.com",
-    },
-    {
-      id: 11, name: "Gatvė", adress: "Gatvės g. 96", phone: "8611222333", email: "gatve@mail.com",
-    },
-    {
-      id: 12, name: "Virtis", adress: "Vilčių g. 34", phone: "8674852963", email: "virtis@mail.com",
-    },
-  ]);
+  const [bars, setBars] = useState([]);
+  const [needLoad, setNeedLoad] = useState(true);
+  let fetchItems = () => {
+    fetch(`https://barappbroker20200515061143.azurewebsites.net/bar/`)
+      .then((response) => {
+        setNeedLoad(false);
+        return response.json();
+      })
+      .then((json) => {
+        setBars(json);
+      });
+  };
+  if (needLoad) fetchItems();
   function UserInfo({ infoElement }) {
-    console.log(infoElement);
     return (
       <View style={styles.user}>
-      <View style={styles.titleLine}>
-        <Text>Baras: {infoElement.name}</Text>
+        <View style={styles.titleLine}>
+          <Text>Baras: "{infoElement.tradeName}"</Text>
+        </View>
+        <View style={styles.firstLine}>
+          <TouchableHighlight
+            underlayColor="#FFACAC"
+            style={[styles.button, { backgroundColor: "#ff5c5c" }]}
+            onPress={() => {
+              Alert.alert("Pranešimas", "Naudotojas sėkmingai panaikintas");
+            }}
+          >
+            <Text style={styles.buttonText}>PANAIKINTI</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor="#FFACAC"
+            style={[styles.button, { backgroundColor: "#ff5c5c" }]}
+            onPress={() => {
+              // Add edit window
+            }}
+          >
+            <Text style={styles.buttonText}>REDAGUOTI</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.secondLine}>
+          <Text>Adresas: {infoElement.address}</Text>
+        </View>
+        <View style={styles.secondLine}>
+          <Text>Tel. numeris: {infoElement.number}</Text>
+        </View>
+        <View style={styles.thirdLine}>
+          <Text>El. paštas: {infoElement.email}</Text>
+        </View>
       </View>
-      <View style={styles.firstLine}>
-        <Button color="#ff5c5c" title="Panaikinti"/>
-        <Button color="#ff5c5c" title="Redaguoti"/>
-      </View>
-      <View style={styles.secondLine}>
-        <Text>ID: {infoElement.id}</Text>
-        <Text>Adresas: {infoElement.adress}</Text>
-        <Text>Tel. numeris: {infoElement.phone}</Text>
-      </View>
-      <View style={styles.thirdLine}>
-        <Text>El. paštas: {infoElement.email}</Text>
-      </View>
-    </View>
     );
-}
+  }
 
   return (
-    <View style={styles.barButton}>
-      <View><Button color="#158a51" title="Pridėti barą" /></View>
+    <View style={{ width: "100%" }}>
+      <View
+        style={{
+          marginTop: 40,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <TouchableHighlight
+          style={{
+            backgroundColor: "#158A51",
+            padding: 5,
+            paddingLeft: 20,
+            paddingRight: 20,
+            borderRadius: 5,
+            borderWidth: 2,
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 16 }}>
+            Pridėti naują barą
+          </Text>
+        </TouchableHighlight>
+      </View>
       <FlatList
-        data={users}
+        style={{ marginTop: 20, width: "100%" }}
+        data={bars}
         renderItem={({ item }) => <UserInfo infoElement={item} />}
         keyExtractor={(user) => user.id}
       />
@@ -87,6 +92,15 @@ export default function (props) {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    padding: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 14,
+  },
   user: {
     width: "100%",
     paddingVertical: "2%",
@@ -100,7 +114,6 @@ const styles = StyleSheet.create({
     paddingVertical: "2%",
     backgroundColor: "#acdba7",
     justifyContent: "space-between",
-
   },
   firstLine: {
     width: "100%",
@@ -125,8 +138,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#96d690",
     justifyContent: "space-between",
   },
-  barButton: {
-    width: "100%",
-    marginTop: 25,
-  }
 });
