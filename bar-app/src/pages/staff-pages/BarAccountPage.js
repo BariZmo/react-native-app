@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Image, Alert } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
-import { SampleBars } from "./SampleBars";
 import ReportView from "./../../../User/ReportView";
 
 export default function () {
-  const [bars, setBars] = useState(SampleBars);
-  let myBar = bars[0];
+  const [bar, setBar] = useState({});
+  const [needLoad, setNeedLoad] = useState(true);
+  let loadBars = () =>
+    fetch("https://barappbroker20200515061143.azurewebsites.net/bar")
+      .then((response) => {
+        setNeedLoad(false);
+        return response.json();
+      })
+      .then((json) => {
+        console.log("Loaded bar accounts.");
+        let myBar = json.find((bar) => bar.id == global.loginId);
+        if (myBar != undefined) {
+          setBar(myBar);
+        }
+      });
+  if (needLoad) loadBars();
 
   const [errorPageOpen, setErrorPageOpen] = useState(false);
 
@@ -20,9 +33,6 @@ export default function () {
           longQuery={"Klaidos apibūdinimas:"}
           longQueryPlaceholder={`Pvz. "Pateikiami neteisingi paskyros duomenys"`}
           sendHandler={(type, description) => {
-            // TODO:
-            // a) send a message to admin
-            // b) get success value
             setErrorPageOpen(false);
             let success = true;
             if (success) {
@@ -55,9 +65,7 @@ export default function () {
         ></ReportView>
       ) : (
         <View style={styles.container}>
-          <Text
-            style={styles.title}
-          >{`Baro "${myBar.tradeName}" paskyra:`}</Text>
+          <Text style={styles.title}>{`Baro "${bar.tradeName}" paskyra:`}</Text>
           <View style={styles.imagePortrait}>
             <View style={styles.imageBackground}></View>
             <View style={styles.imageContainer}>
@@ -67,9 +75,9 @@ export default function () {
               ></Image>
             </View>
           </View>
-          <Text style={styles.info}>{`Tel. nr.: ${myBar.number}`}</Text>
-          <Text style={styles.info}>{`El. paštas: ${myBar.email}`}</Text>
-          <Text style={styles.info}>{`Adresas: ${myBar.address}`}</Text>
+          <Text style={styles.info}>{`Tel. nr.: ${bar.number}`}</Text>
+          <Text style={styles.info}>{`El. paštas: ${bar.email}`}</Text>
+          <Text style={styles.info}>{`Adresas: ${bar.address}`}</Text>
           <View style={{ flex: 1, alignItems: "flex-end" }}>
             <TouchableHighlight
               underlayColor={"red"}
