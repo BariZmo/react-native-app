@@ -3,13 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   FlatList,
   TouchableHighlight,
   Alert,
 } from "react-native";
-
-// *sort by date
+import ReportView from "../User/ReportView";
 
 export default function (props) {
   const [users, setUsers] = useState([]);
@@ -27,6 +25,8 @@ export default function (props) {
       });
   };
   if (needLoad) fetchData();
+
+  const [sendOpen, setSendOpen] = useState(false);
 
   function UserInfo({ infoElement }) {
     return (
@@ -82,7 +82,7 @@ export default function (props) {
             underlayColor="#65CAA1"
             style={[styles.button, { backgroundColor: "#158a51" }]}
             onPress={() => {
-              console.log("Send message to user");
+              setSendOpen(true);
             }}
           >
             <Text style={styles.buttonText}>SIŲSTI PRANEŠIMĄ</Text>
@@ -103,12 +103,35 @@ export default function (props) {
 
   return (
     <View>
-      <FlatList
-        style={{ marginTop: 30 }}
-        data={users}
-        renderItem={({ item }) => <UserInfo infoElement={item} />}
-        keyExtractor={(user) => user.id}
-      />
+      {sendOpen ? (
+        <ReportView
+          title={"Sukurkite norimą pranešimą:"}
+          shortQuery={"Pranešimo tema:"}
+          shortQueryPlaceholder={`Pvz. "Paskyros saugumas pažeistas"`}
+          longQuery={"Pranešimo tekstas:"}
+          longQueryPlaceholder={`Pvz. "Atnaujinkite slaptažodį"`}
+          sendHandler={(type, description) => {
+            setSendOpen(false);
+            let success = true;
+            Alert.alert("Pranešimas:", "Pranešimas sėkmingai išsiųstas.", [
+              {
+                text: "Tęsti",
+                onPress: () => {},
+              },
+            ]);
+          }}
+          cancelHandler={() => {
+            setSendOpen(false);
+          }}
+        ></ReportView>
+      ) : (
+        <FlatList
+          style={{ marginTop: 30 }}
+          data={users}
+          renderItem={({ item }) => <UserInfo infoElement={item} />}
+          keyExtractor={(user) => user.id}
+        />
+      )}
     </View>
   );
 }
