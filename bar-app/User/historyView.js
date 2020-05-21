@@ -8,53 +8,57 @@ import {
   FlatList,
   TextComponent,
   Modal,
+  TouchableHighlight,
+  Alert,
 } from "react-native";
 
 // *sort by date
 
 export default function (props) {
   // temp, sb from props
-  const [infoArray, setInfoArray] = useState([
-    { id: 1, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
-    { id: 2, date: "2020 - 05 - 10", bar: "solento", money: 50 },
-    { id: 3, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
-    { id: 4, date: "2020 - 05 - 10", bar: "solento", money: 50 },
-    { id: 5, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
-    { id: 6, date: "2020 - 05 - 10", bar: "solento", money: 50 },
-    { id: 7, date: "2020 - 08 - 08", bar: "stikliai", money: 100 },
-    { id: 8, date: "2020 - 05 - 10", bar: "solento", money: 50 },
-  ]);
+  const [infoArray, setInfoArray] = useState([]);
 
-  const [currentId, setCurrentId] = useState({
-    id: 1,
-  });
-  // temp, sb from props
-  const [spendInfo, setSpendInfo] = useState([
-    { identityid: 1, id: 1, item: "surelis", price: 20.21 },
-    { identityid: 2, id: 1, item: "jogurtas", price: 14.87 },
-    { identityid: 3, id: 2, item: "tortas", price: 11.27 },
-  ]);
+  const [items, setCurrentItems] = useState([]);
+
+  const [needLoad, setNeedLoad] = useState(true);
+  let fetchData = () => {
+    fetch("https://barappbroker20200515061143.azurewebsites.net/visit")
+      .then((response) => {
+        setNeedLoad(false);
+        return response.json();
+      })
+      .then((json) => {
+        let myVisits = json.filter((visit) => visit.userId == global.loginId);
+        fetch("https://barappbroker20200515061143.azurewebsites.net/bar")
+          .then((barResponse) => barResponse.json())
+          .then((barJson) => {
+            myVisits.forEach((visit) => {
+              let myBar = barJson.find((bar) => bar.id == visit.barId);
+              visit.bar = myBar.tradeName;
+
+              visit.sum = visit.costs.reduce((a, b) => a + b, 0);
+            });
+
+            setInfoArray(myVisits);
+          });
+      });
+  };
+  if (needLoad) fetchData();
 
   const [modalVisibility, setModalVisibility] = useState(false);
 
-  const showDetails = (IDE) => {
-    setCurrentId(IDE);
+  const showDetails = (item) => {
+    let a = item.costs;
+    let b = item.items;
+    let zip = (a, b) => a.map((k, i) => [k, b[i]]);
+    let items = zip(a, b);
+
+    setCurrentItems(items);
     setModalVisibility(true);
   };
 
-  const calcSum = (IDE) => {
-    var sum = 0;
-    spendInfo.map((infoElement) =>
-      infoElement.id === IDE ? (sum += infoElement.price) : null
-    );
-
-    var index = infoArray.findIndex((obj) => obj.id === IDE);
-    var updatedInfo = infoArray[index];
-    updatedInfo.money = sum;
-  };
-
   const ClearHistory = () => {
-    setInfoArray([]);
+    Alert.alert("Pranešimas", "Istorija sėkmingai ištrinta.");
   };
 
   function Item({ infoElement }) {
@@ -63,34 +67,25 @@ export default function (props) {
         <View style={styles.spacer}></View>
         <TouchableOpacity
           style={styles.touchable}
-          onPress={() => showDetails(infoElement.id)}
+          onPress={() => showDetails(infoElement)}
         >
-          <Text>
-            Bar: {infoElement.bar}
-            {"\n"}
-            DATE: {infoElement.date}
-            {"\n"}
-            Money spent: {infoElement.money}
+          <Text style={styles.listItemText}>
+            Baras - "{infoElement.bar}"{"\n"}
+            Pinigų išleista (viso): {infoElement.sum}
           </Text>
         </TouchableOpacity>
       </View>
     );
   }
-  // detailed info product - price
+
   function VisitInfo({ infoElement }) {
     return (
       <View style={styles.row}>
-        {infoElement.id == currentId ? (
-          <Text>Item: {infoElement.item} </Text>
-        ) : null}
-        {infoElement.id == currentId ? (
-          <Text>price: {infoElement.price}</Text>
-        ) : null}
+        <Text style={styles.itemStyle}>Pirkinys: {infoElement[1]} </Text>
+        <Text style={styles.itemStyle}>kaina: {infoElement[0]}</Text>
       </View>
     );
   }
-
-  infoArray.map((info) => calcSum(info.id));
 
   return (
     <View style={styles.main}>
@@ -99,11 +94,18 @@ export default function (props) {
           <View style={styles.modal}>
             <FlatList
               style={styles.list}
-              data={spendInfo}
+              data={items}
               renderItem={({ item }) => <VisitInfo infoElement={item} />}
-              keyExtractor={(item) => item.identityid}
+              keyExtractor={(item, i) => i}
             />
-            <Button title="go back" onPress={() => setModalVisibility(false)} />
+            <TouchableHighlight
+              onPress={() => {
+                setModalVisibility(false);
+              }}
+              style={styles.modalButton}
+            >
+              <Text>Grįžti</Text>
+            </TouchableHighlight>
           </View>
         </View>
       </Modal>
@@ -118,13 +120,26 @@ export default function (props) {
         style={styles.clearButton}
         onPress={() => ClearHistory()}
       >
-        <Text style={styles.clearText}> Išvalyti istorija</Text>
+        <Text style={styles.clearText}>Išvalyti istoriją</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  modalButton: {
+    padding: 10,
+    margin: 10,
+    backgroundColor: "skyblue",
+    borderRadius: 15,
+    borderWidth: 2,
+  },
+  itemStyle: {
+    fontSize: 16,
+  },
+  listItemText: {
+    padding: 5,
+  },
   main: {
     marginTop: "10%",
     height: "85%",
@@ -183,6 +198,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    padding: 5,
 
     // width: "100%",
   },
