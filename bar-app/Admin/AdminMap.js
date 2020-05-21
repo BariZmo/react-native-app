@@ -40,6 +40,9 @@ export default class AdminMap extends Component {
   }
 
   handlePress(e) {
+    if(this.state.markers.length > 0) {
+      this.state.markers.length = 0;
+    }
     this.setState({
       markers: [
         ...this.state.markers,
