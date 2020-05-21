@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: "2%",
     backgroundColor: "#53914d",
-    marginBottom: 60,
+    marginBottom: 20,
   },
   titleLine: {
     justifyContent: "right",
