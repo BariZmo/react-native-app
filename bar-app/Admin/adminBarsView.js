@@ -91,6 +91,16 @@ export default function (props) {
   );
 }
 
+function GoToButton() {
+  const navigation = useNavigation();
+  return (
+    <Button
+      title="Pridėti barą"
+      onPress={() => navigation.navigate("AddBarPage")}
+    />
+  );
+}
+
 const styles = StyleSheet.create({
   button: {
     padding: 5,
