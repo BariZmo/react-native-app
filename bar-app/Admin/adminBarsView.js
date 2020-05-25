@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert, FlatList } from "react-native";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
 
 // *sort by date
 
@@ -66,16 +67,7 @@ export default function (props) {
           justifyContent: "center",
         }}
       >
-        <GoToButton
-          style={{
-            backgroundColor: "#158A51",
-            padding: 5,
-            paddingLeft: 20,
-            paddingRight: 20,
-            borderRadius: 5,
-            borderWidth: 2,
-          }} 
-        />
+        <GoToButton />
       </View>
       <FlatList
         style={{ marginTop: 20, width: "100%" }}
@@ -90,10 +82,19 @@ export default function (props) {
 function GoToButton() {
   const navigation = useNavigation();
   return (
-    <TouchableHighlight>
-      <Text style={{ color: "white", fontSize: 16 }}>
-        Pridėti naują barą
-      </Text>
+    <TouchableHighlight style={{
+      backgroundColor: "#158A51",
+      padding: 5,
+      paddingLeft: 20,
+      paddingRight: 20,
+      borderRadius: 5,
+      borderWidth: 2,
+    }}>
+      <View>
+        <Text>
+          Pridėti naują barą
+        </Text>
+      </View>
       onPress={() => navigation.navigate("AddBarPage")}
     </TouchableHighlight>
   );
