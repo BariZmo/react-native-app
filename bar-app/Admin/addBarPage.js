@@ -48,7 +48,7 @@ export default function ({ navigation }) {
             style={styles.button}
             onPress={() => {
                 submit(tradeName, number, email, adress);
-                navigation.navigate("AdminMapsPage");
+                navigation.navigate("AdminMapPage");
             }}
         >
         <Text style={styles.buttonText}>Tęsti</Text>

@@ -82,20 +82,21 @@ export default function (props) {
 function GoToButton() {
   const navigation = useNavigation();
   return (
-    <TouchableHighlight style={{
-      backgroundColor: "#158A51",
-      padding: 5,
-      paddingLeft: 20,
-      paddingRight: 20,
-      borderRadius: 5,
-      borderWidth: 2,
-    }}>
+    <TouchableHighlight 
+      style={{
+        backgroundColor: "#158A51",
+        padding: 5,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 5,
+        borderWidth: 2,
+      }}
+      onPress={() => navigation.navigate("AdminAddBarPage")}>
       <View>
         <Text>
           Pridėti naują barą
         </Text>
       </View>
-      onPress={() => navigation.navigate("AddBarPage")}
     </TouchableHighlight>
   );
 }
