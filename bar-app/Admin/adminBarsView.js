@@ -66,7 +66,7 @@ export default function (props) {
           justifyContent: "center",
         }}
       >
-        <TouchableHighlight
+        <GoToButton
           style={{
             backgroundColor: "#158A51",
             padding: 5,
@@ -74,12 +74,8 @@ export default function (props) {
             paddingRight: 20,
             borderRadius: 5,
             borderWidth: 2,
-          }}
-        >
-          <Text style={{ color: "white", fontSize: 16 }}>
-            Pridėti naują barą
-          </Text>
-        </TouchableHighlight>
+          }} 
+        />
       </View>
       <FlatList
         style={{ marginTop: 20, width: "100%" }}
@@ -94,10 +90,12 @@ export default function (props) {
 function GoToButton() {
   const navigation = useNavigation();
   return (
-    <Button
-      title="Pridėti barą"
+    <TouchableHighlight>
+      <Text style={{ color: "white", fontSize: 16 }}>
+        Pridėti naują barą
+      </Text>
       onPress={() => navigation.navigate("AddBarPage")}
-    />
+    </TouchableHighlight>
   );
 }
 
